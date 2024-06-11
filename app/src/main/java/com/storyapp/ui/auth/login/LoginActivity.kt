@@ -1,5 +1,6 @@
 package com.storyapp.ui.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityLoginBinding
 import com.storyapp.ui.ViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
+import com.storyapp.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -39,6 +41,9 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is ResultState.Success -> {
                         Log.d(TAG, "Success State ${result.data}")
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                     is ResultState.Error -> {
                         Log.e(TAG, "Error State ${result.error}")

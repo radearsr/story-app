@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.glide)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)

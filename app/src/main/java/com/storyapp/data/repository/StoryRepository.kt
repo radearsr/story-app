@@ -10,15 +10,16 @@ import com.storyapp.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 
-class UserRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
+class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
     fun login(email: String, password: String) = liveData {
         emit(ResultState.Loading)
         try {
             val loginResponse = apiService.postLogin(email, password)
+            val (name, userId, token) = loginResponse.loginResult
             val userLoggedIn = UserModel(
-                userId = loginResponse.loginResult.userId,
-                token = loginResponse.loginResult.token,
-                name = loginResponse.loginResult.name,
+                userId = userId,
+                token = token,
+                name = name,
                 isLogin = true
             )
             userPreference.saveSession(userLoggedIn)
@@ -36,8 +37,18 @@ class UserRepository private constructor(private val userPreference: UserPrefere
             val registerResponse = apiService.postRegister(name, email, password)
             emit(ResultState.Success(registerResponse))
         } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, CommonResponse::class.java)
+            val errorResponse = parsingErrorBody(e)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun getAllStories() = liveData {
+        emit(ResultState.Loading)
+        try {
+            val storiesResponse = apiService.getStories()
+            emit(ResultState.Success(storiesResponse.listStory))
+        } catch (e: HttpException) {
+            val errorResponse = parsingErrorBody(e)
             emit(ResultState.Error(errorResponse.message))
         }
     }
@@ -50,11 +61,16 @@ class UserRepository private constructor(private val userPreference: UserPrefere
         userPreference.logout()
     }
 
+    private fun parsingErrorBody(e: HttpException): CommonResponse {
+        val errorBody = e.response()?.errorBody()?.string()
+        return Gson().fromJson(errorBody, CommonResponse::class.java)
+    }
+
     companion object {
         @Volatile
-        private var instance: UserRepository? = null
-        fun getInstance(userPreference: UserPreference, apiService: ApiService): UserRepository = instance ?: synchronized(this) {
-            instance ?: UserRepository(userPreference, apiService)
+        private var instance: StoryRepository? = null
+        fun getInstance(userPreference: UserPreference, apiService: ApiService): StoryRepository = instance ?: synchronized(this) {
+            instance ?: StoryRepository(userPreference, apiService)
         }.also { instance = it }
     }
 }
