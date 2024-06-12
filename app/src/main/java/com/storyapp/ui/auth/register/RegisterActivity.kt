@@ -2,22 +2,18 @@ package com.storyapp.ui.auth.register
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityRegisterBinding
-import com.storyapp.ui.ViewModelFactory
+import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private val authViewModel by viewModels<AuthViewModel> {
-        ViewModelFactory.getInstance(this)
+        UserViewModelFactory.getInstance(this)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

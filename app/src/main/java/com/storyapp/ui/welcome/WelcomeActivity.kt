@@ -3,14 +3,10 @@ package com.storyapp.ui.welcome
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.storyapp.R
 import com.storyapp.databinding.ActivityWelcomeBinding
-import com.storyapp.ui.ViewModelFactory
+import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.login.LoginActivity
 import com.storyapp.ui.auth.register.RegisterActivity
 import com.storyapp.ui.main.MainActivity
@@ -18,7 +14,7 @@ import com.storyapp.ui.main.MainActivity
 class WelcomeActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<WelcomeViewModel> {
-        ViewModelFactory.getInstance(this)
+        UserViewModelFactory.getInstance(this)
     }
 
     private lateinit var binding: ActivityWelcomeBinding

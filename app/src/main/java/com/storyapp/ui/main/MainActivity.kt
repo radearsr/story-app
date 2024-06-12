@@ -6,22 +6,26 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.data.remote.response.ListStoryItem
-import com.storyapp.data.repository.StoryRepository
 import com.storyapp.databinding.ActivityMainBinding
-import com.storyapp.ui.ViewModelFactory
+import com.storyapp.ui.StoryViewModelFactory
+import com.storyapp.ui.UserViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this)
+        StoryViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.fabCreateStory.setOnClickListener {
+            val intent = Intent(this@MainActivity, CreateStoryActivity::class.java)
+            startActivity(intent)
+        }
 
         viewModel.getStories().observe(this) { result ->
             if(result != null) {

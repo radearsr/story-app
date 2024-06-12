@@ -7,14 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityLoginBinding
-import com.storyapp.ui.ViewModelFactory
+import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private val authViewModel by viewModels<AuthViewModel> {
-        ViewModelFactory.getInstance(this)
+        UserViewModelFactory.getInstance(this)
     }
 
     private lateinit var binding: ActivityLoginBinding
