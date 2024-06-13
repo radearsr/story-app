@@ -1,20 +1,17 @@
-package com.storyapp.ui.main
+package com.storyapp.ui.main.detail
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
-import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityDetailStoryBinding
 import com.storyapp.ui.StoryViewModelFactory
+import com.storyapp.ui.main.MainViewModel
 
 class DetailStoryActivity : AppCompatActivity() {
-    private val viewModel by viewModels<MainViewModel> {
+    private val viewModel by viewModels<DetailStoryViewModel> {
         StoryViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityDetailStoryBinding

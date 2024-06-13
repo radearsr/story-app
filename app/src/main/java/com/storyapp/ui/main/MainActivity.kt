@@ -10,7 +10,8 @@ import com.storyapp.data.ResultState
 import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.databinding.ActivityMainBinding
 import com.storyapp.ui.StoryViewModelFactory
-import com.storyapp.ui.UserViewModelFactory
+import com.storyapp.ui.main.create.CreateStoryActivity
+import com.storyapp.ui.main.detail.DetailStoryActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {

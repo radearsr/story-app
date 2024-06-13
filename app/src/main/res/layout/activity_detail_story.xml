@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.DetailStoryActivity">
+    tools:context=".ui.main.detail.DetailStoryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,12 +15,11 @@
             android:id="@+id/iv_back_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_back_ios_24"
-            android:padding="10dp"
             android:layout_margin="10dp"
+            android:padding="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_detail_photo"

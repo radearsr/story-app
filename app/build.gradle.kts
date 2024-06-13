@@ -62,6 +62,10 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.androidx.activity.ktx)
 
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
