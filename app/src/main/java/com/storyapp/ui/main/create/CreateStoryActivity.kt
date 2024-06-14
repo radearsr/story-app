@@ -6,21 +6,23 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.storyapp.R
+import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
+import com.storyapp.ui.StoryViewModelFactory
+import com.storyapp.utils.reduceFileImage
+import com.storyapp.utils.uriToFile
+
 
 class CreateStoryActivity : AppCompatActivity() {
-    private val viewModel by viewModels<CreateStoryViewModel>()
+    private val viewModel by viewModels<CreateStoryViewModel> {
+        StoryViewModelFactory.getInstance(this)
+    }
 
     private lateinit var binding: ActivityCreateStoryBinding
 
@@ -49,23 +51,28 @@ class CreateStoryActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
+            showToast("Permission request granted")
         } else {
-            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
+            showToast("Permission request denied")
         }
     }
 
-    private fun allPermissionGranted() = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION) == PackageManager.PERMISSION_GRANTED
+    private fun allPermissionGranted() = ContextCompat.checkSelfPermission(
+        this,
+        REQUIRED_PERMISSION
+    ) == PackageManager.PERMISSION_GRANTED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(!allPermissionGranted()) {
+        if (!allPermissionGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
-
+        binding.buttonAdd.setOnClickListener {
+            uploadImage()
+        }
         binding.ivBackAction.setOnClickListener {
             finish()
         }
@@ -78,6 +85,35 @@ class CreateStoryActivity : AppCompatActivity() {
         }
 
         setupObserver()
+    }
+
+    private fun uploadImage() {
+        val currentImage = viewModel.getCurrentImage()
+        currentImage?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val description = binding.edAddDescription.text.toString()
+            viewModel.uploadStory(imageFile, description).observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is ResultState.Loading -> {
+                            Log.d(TAG, "Loading State Upload Image")
+                        }
+
+                        is ResultState.Success -> {
+                            Log.d(TAG, "Success Upload Image")
+                        }
+
+                        is ResultState.Error -> {
+                            Log.d(TAG, "Error Upload Image")
+                        }
+                    }
+                }
+            }
+        } ?: showToast("Silakan masukkan berkas gambar terlebih dahulu.")
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupObserver() {

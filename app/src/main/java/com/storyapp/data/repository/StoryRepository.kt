@@ -8,7 +8,10 @@ import com.storyapp.data.pref.UserPreference
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
+import javax.xml.transform.Result
 
 class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
 
@@ -29,6 +32,17 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
         try {
             val detailStory = apiService.getDetailStory(storyId)
             emit(ResultState.Success(detailStory.story))
+        } catch (e: HttpException) {
+            val errorResponse = parsingErrorBody(e)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun uploadStory(fileUpload: MultipartBody.Part, description: RequestBody) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val uploadedStory = apiService.uploadImage(fileUpload, description)
+            emit(ResultState.Success(uploadedStory))
         } catch (e: HttpException) {
             val errorResponse = parsingErrorBody(e)
             emit(ResultState.Error(errorResponse.message))
