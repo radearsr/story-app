@@ -44,8 +44,6 @@ class LoginActivity : AppCompatActivity() {
             startLogin(email.toString(), password.toString())
         }
 
-
-
         binding.edLoginEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -105,7 +103,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                         showDialog("ERROR", result.error, false)
                         setViewLoading(false)
-
                     }
                 }
             }

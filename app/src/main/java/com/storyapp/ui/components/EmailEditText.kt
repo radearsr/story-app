@@ -20,7 +20,6 @@ class EmailEditText @JvmOverloads constructor(
 
     init {
         textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-        background = ContextCompat.getDrawable(context, R.drawable.edit_text_border)
         inputType = InputType.TYPE_CLASS_TEXT
 
         addTextChangedListener(object : TextWatcher {

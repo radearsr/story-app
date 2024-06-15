@@ -17,4 +17,8 @@
     <string name="txt_back">Back Button</string>
     <string name="txt_logo">Story Application Logo</string>
     <string name="txt_close">Close</string>
+    <string name="register_subtitle">Enter your personal information</string>
+    <string name="txt_fullname">Fullname</string>
+    <string name="txt_enter_name">Enter your full name</string>
+    <string name="txt_have_account">Have an account?</string>
 </resources>
