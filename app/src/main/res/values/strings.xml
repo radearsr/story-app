@@ -5,4 +5,16 @@
     <string name="upload">Upload</string>
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_enter_password">Enter password</string>
+    <string name="txt_enter_email">Enter email address</string>
+    <string name="txt_login">Login</string>
+    <string name="login_subtitle">Login to continue using the app</string>
+    <string name="txt_no_account">Don\'t have an account?</string>
+    <string name="txt_register">Register</string>
+    <string name="txt_loading">Please Wait...</string>
+    <string name="txt_back">Back Button</string>
+    <string name="txt_logo">Story Application Logo</string>
+    <string name="txt_close">Close</string>
 </resources>

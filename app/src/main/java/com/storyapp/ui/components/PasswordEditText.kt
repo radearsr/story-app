@@ -1,7 +1,6 @@
-package com.storyapp.ui.auth.components
+package com.storyapp.ui.components
 
 import android.content.Context
-import android.graphics.Canvas
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -11,6 +10,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.storyapp.R
+import com.storyapp.utils.validPassword
 
 class PasswordEditText @JvmOverloads constructor(
     context: Context,
@@ -33,7 +33,7 @@ class PasswordEditText @JvmOverloads constructor(
 
     init {
         textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-        background = ContextCompat.getDrawable(context, R.drawable.edit_text_border_selector)
+        background = ContextCompat.getDrawable(context, R.drawable.edit_text_border)
         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, visibilityToggleDrawable, null)
 
@@ -43,27 +43,21 @@ class PasswordEditText @JvmOverloads constructor(
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                setError(if (s != null && s.length < 8) {
-                    "Password harus terdiri dari minimal 8 karakter"
-                } else {
-                    null
-                }, null)
+                setError(
+                    if (!validPassword(s.toString())) {
+                        "Password harus terdiri dari minimal 8 karakter"
+                    } else {
+                        null
+                    }, null
+                )
             }
         })
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        hint = if (text.isNullOrEmpty()) {
-            "Password"
-        } else {
-            ""
-        }
-    }
-
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP) {
-            val drawableRight = if (isPasswordVisible) visibilityOffToggleDrawable else visibilityToggleDrawable
+            val drawableRight =
+                if (isPasswordVisible) visibilityOffToggleDrawable else visibilityToggleDrawable
             if (event.rawX >= (right - drawableRight?.bounds?.width()!!)) {
                 togglePasswordVisibility()
                 return true
@@ -77,10 +71,20 @@ class PasswordEditText @JvmOverloads constructor(
         val selectionEnd = selectionEnd
         isPasswordVisible = !isPasswordVisible
         inputType = if (isPasswordVisible) {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, visibilityOffToggleDrawable, null)
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            setCompoundDrawablesRelativeWithIntrinsicBounds(
+                null,
+                null,
+                visibilityOffToggleDrawable,
+                null
+            )
+            InputType.TYPE_CLASS_TEXT
         } else {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, visibilityToggleDrawable, null)
+            setCompoundDrawablesRelativeWithIntrinsicBounds(
+                null,
+                null,
+                visibilityToggleDrawable,
+                null
+            )
             InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
         setSelection(selectionStart, selectionEnd)

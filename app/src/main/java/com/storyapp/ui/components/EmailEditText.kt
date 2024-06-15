@@ -1,17 +1,16 @@
-package com.storyapp.ui.auth.components
+package com.storyapp.ui.components
 
 import android.content.Context
-import android.graphics.Canvas
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.storyapp.R
+import com.storyapp.utils.validEmail
 
 class EmailEditText @JvmOverloads constructor(
     context: Context,
@@ -21,8 +20,8 @@ class EmailEditText @JvmOverloads constructor(
 
     init {
         textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-        background = ContextCompat.getDrawable(context, R.drawable.edit_text_border_selector)
-        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+        background = ContextCompat.getDrawable(context, R.drawable.edit_text_border)
+        inputType = InputType.TYPE_CLASS_TEXT
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -31,25 +30,15 @@ class EmailEditText @JvmOverloads constructor(
 
             override fun afterTextChanged(s: Editable?) {
                 s?.let {
-                    validateEmail(it.toString())
+                    validateEmailAddress(it.toString())
                 }
             }
         })
     }
 
-    private fun validateEmail(email: String) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    private fun validateEmailAddress(email: String) {
+        if (!validEmail(email)) {
             this.error = "Alamat email tidak valid"
         }
     }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        hint = if (text.isNullOrEmpty()) {
-            "Email"
-        } else {
-            ""
-        }
-    }
-
 }

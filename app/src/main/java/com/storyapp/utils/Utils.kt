@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
+import android.util.Patterns
 import androidx.exifinterface.media.ExifInterface
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -52,8 +53,11 @@ fun File.reduceFileImage(): File {
 }
 
 fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
-    val orientation = ExifInterface(file).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-    return when(orientation) {
+    val orientation = ExifInterface(file).getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
+        ExifInterface.ORIENTATION_UNDEFINED
+    )
+    return when (orientation) {
         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(this, 90F)
         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(this, 180F)
         ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(this, 270F)
@@ -68,4 +72,12 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun validEmail(email: String): Boolean {
+    return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+}
+
+fun validPassword(password: String?): Boolean {
+    return password != null && password.length >= 8
 }
