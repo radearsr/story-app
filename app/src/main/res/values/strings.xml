@@ -21,4 +21,8 @@
     <string name="txt_fullname">Fullname</string>
     <string name="txt_enter_name">Enter your full name</string>
     <string name="txt_have_account">Have an account?</string>
+    <string name="txt_app">App</string>
+    <string name="txt_story">Story</string>
+    <string name="welcome_description">Share your special moments, discover inspiring stories from around the world, and create lasting memories. Connect with friends, express yourself, and explore endless possibilities.</string>
+    <string name="welcome_title">Live the moment share the experience</string>
 </resources>

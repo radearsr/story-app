@@ -5,44 +5,117 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
     tools:context=".ui.welcome.WelcomeActivity">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/welcome_image"
+        app:layout_constraintBottom_toTopOf="@+id/middle_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_logo_app"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/camera_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/middle_guideline" />
+
+    <TextView
+        android:id="@+id/tv_title_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/lato_black"
+        android:text="@string/txt_story"
+        android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_logo_app"
+        app:layout_constraintStart_toEndOf="@+id/iv_logo_app"
+        app:layout_constraintTop_toTopOf="@+id/iv_logo_app" />
+
+    <TextView
+        android:id="@+id/tv_subtitle_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="@string/txt_app"
+        android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title_app"
+        app:layout_constraintStart_toEndOf="@+id/tv_title_app"
+        app:layout_constraintTop_toTopOf="@+id/tv_title_app" />
+
+    <TextView
+        android:id="@+id/tv_welcome_title"
+        style="@style/TextViewBasic.Title"
+        android:layout_marginTop="10dp"
+        android:text="@string/welcome_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo_app" />
+
+    <TextView
+        android:id="@+id/tv_welcome_description"
+        style="@style/TextViewBasic.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/welcome_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_title" />
 
     <Button
         android:id="@+id/btn_to_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/blue"
-        android:padding="14dp"
         android:text="@string/txt_login"
         android:textColor="@color/white"
+        android:textSize="18sp"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_guideline" />
+
 
     <Button
         android:id="@+id/btn_to_register"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/blue"
-        android:padding="14dp"
         android:text="@string/txt_register"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_button_outline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_to_login"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/btn_to_login" />
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guideline"
+        android:id="@+id/middle_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
