@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
 import com.storyapp.ui.StoryViewModelFactory
@@ -32,7 +33,7 @@ class CreateStoryActivity : AppCompatActivity() {
         if (uri != null) {
             viewModel.setCurrentImage(uri)
         } else {
-            Log.d(TAG, "No Media Selected")
+            Log.d(TAG, getString(R.string.txt_no_media))
         }
     }
 
@@ -51,9 +52,9 @@ class CreateStoryActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            showToast("Permission request granted")
+            showToast(getString(R.string.txt_granted))
         } else {
-            showToast("Permission request denied")
+            showToast(getString(R.string.txt_denied))
         }
     }
 
@@ -73,7 +74,7 @@ class CreateStoryActivity : AppCompatActivity() {
         binding.buttonAdd.setOnClickListener {
             uploadImage()
         }
-        binding.ivBackAction.setOnClickListener {
+        binding.fabBack.setOnClickListener {
             finish()
         }
         binding.btnGallery.setOnClickListener {
@@ -109,7 +110,7 @@ class CreateStoryActivity : AppCompatActivity() {
                     }
                 }
             }
-        } ?: showToast("Silakan masukkan berkas gambar terlebih dahulu.")
+        } ?: showToast(getString(R.string.txt_image_required))
     }
 
     private fun showToast(message: String) {
@@ -117,8 +118,12 @@ class CreateStoryActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        viewModel.currentImage.observe(this) {
-            binding.ivPreview.setImageURI(it)
+        viewModel.currentImage.observe(this) { uri ->
+            binding.ivPreview.apply {
+                setImageURI(uri)
+                background = ContextCompat.getDrawable(this@CreateStoryActivity, R.drawable.rounded_background)
+                clipToOutline = true
+            }
         }
     }
 

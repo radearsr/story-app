@@ -5,17 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.main.create.CreateStoryActivity">
 
-    <ImageView
-        android:id="@+id/iv_back_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/txt_back"
         android:src="@drawable/baseline_arrow_back_ios_24"
-        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_preview"
@@ -25,14 +29,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/btn_gallery"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerCrop"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_back_action"
+        app:layout_constraintTop_toBottomOf="@+id/fab_back"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_place_holder" />
+        android:src="@drawable/ic_place_holder" />
 
     <Button
         android:id="@+id/btn_gallery"
@@ -41,8 +46,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
-        android:scaleType="fitCenter"
+        android:backgroundTint="@color/blue"
+        android:padding="12dp"
         android:text="@string/gallery"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/ed_add_description"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
         app:layout_constraintHorizontal_bias="0.0"
@@ -55,7 +62,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/blue"
+        android:padding="12dp"
         android:text="@string/camera"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/ed_add_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -66,7 +76,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:background="@drawable/edit_text_border"
         android:lines="6"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -78,9 +90,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="40dp"
-        android:padding="0dp"
+        android:backgroundTint="@color/blue"
+        android:padding="12dp"
         android:text="@string/upload"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
