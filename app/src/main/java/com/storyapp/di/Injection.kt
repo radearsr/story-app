@@ -13,9 +13,9 @@ import kotlinx.coroutines.runBlocking
 object Injection {
     fun provideStoryRepository(context: Context): StoryRepository {
         val pref = UserPreference.getInstance(context.dataStore)
-        val user = runBlocking { pref.getUser().first() }
-        Log.i("Injection", "USER TOKEN = $user")
-        val apiService = ApiConfig.getApiService(user)
+        val userToken = runBlocking { pref.getUser().first() }
+        Log.i("Injection", "USER TOKEN = $userToken")
+        val apiService = ApiConfig.getApiService(userToken)
         return StoryRepository.getInstance(pref, apiService)
     }
 
