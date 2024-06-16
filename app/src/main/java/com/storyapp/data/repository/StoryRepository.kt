@@ -15,15 +15,13 @@ import javax.xml.transform.Result
 
 class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
 
-
     fun getAllStories() = liveData {
         emit(ResultState.Loading)
         try {
             val storiesResponse = apiService.getStories()
             emit(ResultState.Success(storiesResponse.listStory))
         } catch (e: HttpException) {
-            val errorResponse = parsingErrorBody(e)
-            emit(ResultState.Error(errorResponse.message))
+            emit(ResultState.Error(e.code().toString()))
         }
     }
 
@@ -47,6 +45,10 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
             val errorResponse = parsingErrorBody(e)
             emit(ResultState.Error(errorResponse.message))
         }
+    }
+
+    suspend fun logout() {
+        userPreference.logout()
     }
 
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.databinding.ItemStoryListBinding
+import com.storyapp.utils.getTimeAgo
 
 class StoryAdapter(private val listStory: List<ListStoryItem>) :
     RecyclerView.Adapter<StoryAdapter.ListViewHolder>() {
@@ -25,10 +26,12 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
     override fun getItemCount(): Int = listStory.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (id, photoUrl, name) = listStory[position]
+        val (id, photoUrl, name, _, createdAt) = listStory[position]
         with(holder.binding) {
             tvItemName.text = name
             Glide.with(root).load(photoUrl).into(ivItemPhoto)
+            val timeAgo = getTimeAgo(holder.itemView.context, createdAt)
+            tvItemDate.text = timeAgo
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(id)

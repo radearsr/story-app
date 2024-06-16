@@ -52,10 +52,6 @@ class UserRepository(private val userPreference: UserPreference, private val api
         return userPreference.getSession()
     }
 
-    suspend fun logout() {
-        userPreference.logout()
-    }
-
     companion object {
         @Volatile
         private var instance: UserRepository? = null

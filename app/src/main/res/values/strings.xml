@@ -25,4 +25,18 @@
     <string name="txt_story">Story</string>
     <string name="welcome_description">Share your special moments, discover inspiring stories from around the world, and create lasting memories. Connect with friends, express yourself, and explore endless possibilities.</string>
     <string name="welcome_title">Live the moment share the experience</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_just_now">just now</string>
+    <string name="txt_a_minutes">a minute ago</string>
+    <string name="txt_minutes_ago">%d minute ago</string>
+    <string name="txt_an_hour_ago">an hour ago</string>
+    <string name="txt_hour_ago">%d hour ago</string>
+    <string name="txt_yesterday">yesterday</string>
+    <string name="txt_days_ago">%d days ago</string>
+    <string name="txt_message_logout">Are you sure you want to log out? You can always return to continue your story.</string>
+    <string name="txt_confirm">CONFIRM</string>
+    <string name="txt_alert">ALERT</string>
+    <string name="txt_unauthorize">You do not have permission to access this page. Please log in to continue.</string>
+    <string name="txt_not_found">Data not found. Please try again or check your search keyword</string>
+    <string name="txt_server_error">A server error occurred. Please try again later.</string>
 </resources>
