@@ -119,6 +119,7 @@
         android:enabled="false"
         android:padding="16dp"
         android:text="@string/txt_register"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ed_login_password" />

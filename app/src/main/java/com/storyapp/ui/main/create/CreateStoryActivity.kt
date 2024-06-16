@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.Window
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,10 +14,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
 import com.storyapp.ui.StoryViewModelFactory
+import com.storyapp.ui.components.DialogInformation
+import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.reduceFileImage
 import com.storyapp.utils.uriToFile
 
@@ -97,15 +102,33 @@ class CreateStoryActivity : AppCompatActivity() {
                 if (result != null) {
                     when (result) {
                         is ResultState.Loading -> {
-                            Log.d(TAG, "Loading State Upload Image")
+                            setViewLoading(true)
                         }
 
                         is ResultState.Success -> {
-                            Log.d(TAG, "Success Upload Image")
+                            setViewLoading(false)
+                            if (BuildConfig.DEBUG) Log.d(TAG, "State Success ${result.data}")
+                            val isGuestMode = intent.getBooleanExtra(EXTRA_GUEST_MODE, false)
+                            if (isGuestMode) {
+                                val intent = Intent(this@CreateStoryActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                                return@observe
+                            }
+                            finish()
                         }
 
                         is ResultState.Error -> {
-                            Log.d(TAG, "Error Upload Image")
+                            setViewLoading(false)
+                            if (BuildConfig.DEBUG) Log.e(TAG, "State Error ${result.error}")
+                            val dialog = DialogInformation(
+                                this@CreateStoryActivity,
+                                getString(R.string.txt_alert),
+                                result.error,
+                                true
+                            )
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialog.show()
                         }
                     }
                 }
@@ -121,10 +144,20 @@ class CreateStoryActivity : AppCompatActivity() {
         viewModel.currentImage.observe(this) { uri ->
             binding.ivPreview.apply {
                 setImageURI(uri)
-                background = ContextCompat.getDrawable(this@CreateStoryActivity, R.drawable.rounded_background)
+                background = ContextCompat.getDrawable(
+                    this@CreateStoryActivity,
+                    R.drawable.rounded_background
+                )
                 clipToOutline = true
             }
         }
+    }
+
+    private fun setViewLoading(isLoading: Boolean) {
+        with(binding.loadingComp.clLoading) {
+            visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+        binding.buttonAdd.isEnabled = !isLoading
     }
 
     private fun startGallery() {
@@ -134,5 +167,6 @@ class CreateStoryActivity : AppCompatActivity() {
     companion object {
         private val TAG = CreateStoryActivity::class.java.simpleName
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+        const val EXTRA_GUEST_MODE = "extra_guest_mode"
     }
 }

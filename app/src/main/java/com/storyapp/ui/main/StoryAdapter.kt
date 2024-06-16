@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.storyapp.R
 import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.databinding.ItemStoryListBinding
 import com.storyapp.utils.getTimeAgo
@@ -17,6 +18,7 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
             ItemStoryListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,7 +31,11 @@ class StoryAdapter(private val listStory: List<ListStoryItem>) :
         val (id, photoUrl, name, _, createdAt) = listStory[position]
         with(holder.binding) {
             tvItemName.text = name
-            Glide.with(root).load(photoUrl).into(ivItemPhoto)
+            Glide
+                .with(root)
+                .load(photoUrl)
+                .placeholder(R.drawable.ic_place_holder)
+                .into(ivItemPhoto)
             val timeAgo = getTimeAgo(holder.itemView.context, createdAt)
             tvItemDate.text = timeAgo
         }

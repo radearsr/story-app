@@ -21,6 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_new_story"
+        android:layout_marginStart="20dp"
+        android:textSize="24sp"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="@font/lato_black"
+        app:layout_constraintBottom_toBottomOf="@id/fab_back"
+        app:layout_constraintStart_toEndOf="@id/fab_back"
+        app:layout_constraintTop_toTopOf="@id/fab_back" />
+
     <ImageView
         android:id="@+id/iv_preview"
         android:layout_width="0dp"
@@ -31,41 +43,41 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_background"
         android:scaleType="centerCrop"
+        android:src="@drawable/ic_place_holder"
         app:layout_constraintBottom_toTopOf="@+id/btn_gallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fab_back"
-        app:layout_constraintVertical_bias="1.0"
-        android:src="@drawable/ic_place_holder" />
+        app:layout_constraintVertical_bias="1.0" />
 
-    <Button
+    <com.storyapp.ui.components.SolidButton
         android:id="@+id/btn_gallery"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/blue"
         android:padding="12dp"
         android:text="@string/gallery"
         android:textSize="18sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintBottom_toTopOf="@+id/ed_add_description"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.storyapp.ui.components.SolidButton
         android:id="@+id/btn_camera"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/blue"
         android:padding="12dp"
         android:text="@string/camera"
         android:textSize="18sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintBottom_toTopOf="@+id/ed_add_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,24 +88,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:autofillHints="off"
         android:background="@drawable/edit_text_border"
+        android:hint="@string/txt_describe"
+        android:inputType="textMultiLine"
         android:lines="6"
         android:padding="10dp"
+        android:fontFamily="@font/lato"
         app:layout_constraintBottom_toTopOf="@+id/button_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.storyapp.ui.components.SolidButton
         android:id="@+id/button_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/blue"
         android:padding="12dp"
         android:text="@string/upload"
         android:textSize="18sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -105,5 +121,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <include
+        android:id="@+id/loading_comp"
+        layout="@layout/layout_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
