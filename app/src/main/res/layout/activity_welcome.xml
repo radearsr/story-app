@@ -74,14 +74,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome_title" />
 
-    <Button
+    <com.storyapp.ui.components.SolidButton
         android:id="@+id/btn_to_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/blue"
         android:text="@string/txt_login"
-        android:textColor="@color/white"
         android:textSize="18sp"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,17 +87,15 @@
         app:layout_constraintTop_toBottomOf="@+id/bottom_guideline" />
 
 
-    <Button
+    <com.storyapp.ui.components.OutlineButton
         android:id="@+id/btn_to_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_register"
-        android:textColor="@color/dark_blue"
         android:textSize="18sp"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_button_outline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_to_login" />
 
