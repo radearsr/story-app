@@ -45,4 +45,5 @@
     <string name="txt_image_required">Please upload an image file first.</string>
     <string name="txt_describe">Describe your special moment...</string>
     <string name="txt_new_story">New Story</string>
+    <string name="txt_detail_story">Detail Story</string>
 </resources>

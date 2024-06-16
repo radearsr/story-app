@@ -5,27 +5,46 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.main.detail.DetailStoryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_back_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/txt_back"
             android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_detail_story"
+            android:layout_marginStart="20dp"
+            android:textSize="24sp"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/lato_black"
+            app:layout_constraintBottom_toBottomOf="@id/fab_back"
+            app:layout_constraintStart_toEndOf="@id/fab_back"
+            app:layout_constraintTop_toTopOf="@id/fab_back" />
 
         <ImageView
             android:id="@+id/iv_detail_photo"
             android:layout_width="0dp"
             android:layout_height="400dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_background"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_place_holder"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +55,9 @@
             android:id="@+id/tv_detail_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
             android:padding="10dp"
+            android:textColor="@color/dark_blue"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_detail_description"
@@ -47,17 +68,44 @@
 
         <TextView
             android:id="@+id/tv_detail_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
+            android:fontFamily="@font/lato"
             android:gravity="start"
             android:padding="10dp"
             android:textAlignment="textStart"
+            android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_detail_name"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_detail_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
             tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato"
+            android:padding="10dp"
+            android:textColor="@color/dark_grey"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="@id/tv_detail_description"
+            app:layout_constraintStart_toStartOf="@id/tv_detail_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_description"
+            tools:text="@tools:sample/full_names" />
+
+
+        <include
+            android:id="@+id/loading_comp"
+            layout="@layout/layout_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_detail_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_detail_photo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
