@@ -76,12 +76,20 @@ class MainActivity : AppCompatActivity() {
                         }
                         when (result.error.toInt()) {
                             401 -> {
-                                showDialogConfirmation(
+                                val dialog = DialogInformation(
+                                    this@MainActivity,
                                     getString(R.string.txt_alert),
                                     getString(R.string.txt_unauthorize),
                                     getString(R.string.txt_login),
-                                    getString(R.string.txt_close)
+                                    false
                                 )
+                                dialog.setOnButtonClickCallback(object :
+                                    DialogInformation.OnButtonClickCallback {
+                                    override fun onButtonClose(dialog: Dialog) {
+                                        finish()
+                                    }
+                                })
+                                dialog.show()
                                 setViewError(getString(R.string.txt_unauthorize))
                             }
 
@@ -102,26 +110,26 @@ class MainActivity : AppCompatActivity() {
     private fun showDialogConfirmation(
         title: String,
         message: String,
-        yesString: String,
-        noString: String
+        positiveString: String,
+        negativeString: String
     ) {
         val dialog = DialogConfirmation(
             this@MainActivity, title, message,
             false,
-            yesString,
-            noString
+            positiveString,
+            negativeString
         )
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setOnButtonClickCallback(object :
             DialogConfirmation.OnButtonClickCallback {
-            override fun onButtonYes(dialog: Dialog) {
+            override fun onButtonPositive(dialog: Dialog) {
                 viewModel.logoutSession()
                 val intent = Intent(this@MainActivity, WelcomeActivity::class.java)
                 startActivity(intent)
                 finish()
             }
 
-            override fun onButtonNo(dialog: Dialog) {
+            override fun onButtonNegative(dialog: Dialog) {
                 dialog.dismiss()
             }
         })

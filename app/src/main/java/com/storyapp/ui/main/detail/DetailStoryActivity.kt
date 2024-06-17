@@ -1,5 +1,6 @@
 package com.storyapp.ui.main.detail
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -55,14 +56,20 @@ class DetailStoryActivity : AppCompatActivity() {
                         }
 
                         is ResultState.Error -> {
-                            if (BuildConfig.DEBUG) Log.e(TAG, "State Success ${result.error}")
+                            if (BuildConfig.DEBUG) Log.e(TAG, "State Error ${result.error}")
                             setViewLoading(false)
                             val dialog = DialogInformation(
                                 this@DetailStoryActivity,
-                                getString(R.string.txt_alert),
+                                getString(R.string.txt_error),
                                 result.error,
+                                getString(R.string.txt_close),
                                 true
                             )
+                            dialog.setOnButtonClickCallback(object : DialogInformation.OnButtonClickCallback{
+                                override fun onButtonClose(dialog: Dialog) {
+                                    dialog.dismiss()
+                                }
+                            })
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                             dialog.show()
                         }

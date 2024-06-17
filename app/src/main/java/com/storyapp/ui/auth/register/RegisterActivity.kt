@@ -1,5 +1,6 @@
 package com.storyapp.ui.auth.register
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.BuildConfig
+import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityRegisterBinding
 import com.storyapp.ui.UserViewModelFactory
@@ -47,7 +49,13 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             edRegisterName.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     setupButtonStartEnable()
@@ -57,7 +65,13 @@ class RegisterActivity : AppCompatActivity() {
             })
 
             edLoginEmail.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     setupButtonStartEnable()
@@ -67,7 +81,13 @@ class RegisterActivity : AppCompatActivity() {
             })
 
             edLoginPassword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     setupButtonStartEnable()
@@ -93,7 +113,8 @@ class RegisterActivity : AppCompatActivity() {
             val fullName = edRegisterName.text.toString()
             val email = edLoginEmail.text.toString()
             val password = edLoginPassword.text.toString()
-            btnRegister.isEnabled = fullName.isNotEmpty() && validEmail(email) && validPassword(password)
+            btnRegister.isEnabled =
+                fullName.isNotEmpty() && validEmail(email) && validPassword(password)
         }
     }
 
@@ -119,7 +140,20 @@ class RegisterActivity : AppCompatActivity() {
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, "Error State ${result.error}")
                         }
-                        showDialog("ERROR", result.error, false)
+                        val dialog = DialogInformation(
+                            this,
+                            getString(R.string.txt_error),
+                            result.error,
+                            getString(R.string.txt_close),
+                            true
+                        )
+                        dialog.setOnButtonClickCallback(object : DialogInformation.OnButtonClickCallback{
+                            override fun onButtonClose(dialog: Dialog) {
+                                dialog.dismiss()
+                            }
+                        })
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                        dialog.show()
                         setViewLoading(false)
                     }
                 }
@@ -133,12 +167,6 @@ class RegisterActivity : AppCompatActivity() {
             visibility = if (isLoading) View.VISIBLE else View.GONE
         }
         binding.btnRegister.isEnabled = !isLoading
-    }
-
-    private fun showDialog(title: String, message: String, cancelable: Boolean) {
-        val dialog = DialogInformation(this, title, message, cancelable)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.show()
     }
 
     private fun setupView() {

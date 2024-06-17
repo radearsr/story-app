@@ -10,10 +10,18 @@ class DialogInformation(
     context: Activity,
     private val title: String,
     private val message: String,
-    private val cancelable: Boolean
+    private val txtButtonClose: String,
+    private val cancelable: Boolean,
 ) : Dialog(context, R.style.AlertDialogRounded) {
 
     private lateinit var binding: DialogInformationBinding
+
+    private lateinit var onButtonClickCallback: OnButtonClickCallback
+
+    fun setOnButtonClickCallback(onButtonClickCallback: OnButtonClickCallback) {
+        this.onButtonClickCallback = onButtonClickCallback
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DialogInformationBinding.inflate(layoutInflater)
@@ -22,12 +30,17 @@ class DialogInformation(
         with(binding) {
             tvTitle.text = title
             tvDescription.text = message
+            btnClose.text = txtButtonClose
             btnClose.setOnClickListener {
-                dismiss()
+                onButtonClickCallback.onButtonClose(this@DialogInformation)
             }
         }
 
         setCancelable(cancelable)
         setCanceledOnTouchOutside(cancelable)
+    }
+
+    interface OnButtonClickCallback {
+        fun onButtonClose(dialog: Dialog)
     }
 }

@@ -35,7 +35,7 @@
 
 
     <com.storyapp.ui.components.SolidButton
-        android:id="@+id/btn_yes"
+        android:id="@+id/btn_positive"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
     <com.storyapp.ui.components.OutlineButton
-        android:id="@+id/btn_no"
+        android:id="@+id/btn_negative"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"

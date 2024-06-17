@@ -1,5 +1,6 @@
 package com.storyapp.ui.auth.login
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.BuildConfig
+import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityLoginBinding
 import com.storyapp.ui.UserViewModelFactory
@@ -20,6 +22,7 @@ import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.register.RegisterActivity
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.MainActivity
+import com.storyapp.ui.main.create.CreateStoryActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
 
@@ -71,6 +74,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.btnGuest.setOnClickListener {
+            val intent = Intent(this, CreateStoryActivity::class.java)
+            intent.putExtra(CreateStoryActivity.EXTRA_GUEST_MODE, true)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupButtonStartEnable() {
@@ -101,7 +110,20 @@ class LoginActivity : AppCompatActivity() {
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, "Error State ${result.error}")
                         }
-                        showDialog("ERROR", result.error, false)
+                        val dialog = DialogInformation(
+                            this,
+                            getString(R.string.txt_error),
+                            result.error,
+                            getString(R.string.txt_close),
+                            true
+                        )
+                        dialog.setOnButtonClickCallback(object : DialogInformation.OnButtonClickCallback{
+                            override fun onButtonClose(dialog: Dialog) {
+                                dialog.dismiss()
+                            }
+                        })
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                        dialog.show()
                         setViewLoading(false)
                     }
                 }
@@ -129,11 +151,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.isEnabled = !isLoading
     }
 
-    private fun showDialog(title: String, message: String, cancelable: Boolean) {
-        val dialog = DialogInformation(this, title, message, cancelable)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.show()
-    }
 
     companion object {
         private val TAG = LoginActivity::class.java.simpleName

@@ -10,15 +10,15 @@ class DialogConfirmation(
     context: Context, private val title: String,
     private val message: String,
     private val cancelable: Boolean,
-    private val txtButtonYes: String,
-    private val txtButtonNo: String
+    private val txtButtonPositive: String,
+    private val txtButtonNegative: String
 ) : Dialog(context, R.style.AlertDialogRounded) {
     private lateinit var binding: DialogConfirmationBinding
 
-    private lateinit var onButonClickCallback: OnButtonClickCallback
+    private lateinit var onButtonClickCallback: OnButtonClickCallback
 
     fun setOnButtonClickCallback(onButtonClickCallback: OnButtonClickCallback) {
-        this.onButonClickCallback = onButtonClickCallback
+        this.onButtonClickCallback = onButtonClickCallback
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +29,13 @@ class DialogConfirmation(
         with(binding) {
             tvTitle.text = title
             tvDescription.text = message
-            btnYes.text = txtButtonYes
-            btnNo.text = txtButtonNo
-            btnNo.setOnClickListener {
-                onButonClickCallback.onButtonNo(this@DialogConfirmation)
+            btnPositive.text = txtButtonPositive
+            btnNegative.text = txtButtonNegative
+            btnNegative.setOnClickListener {
+                onButtonClickCallback.onButtonNegative(this@DialogConfirmation)
             }
-            btnYes.setOnClickListener {
-                onButonClickCallback.onButtonYes(this@DialogConfirmation)
+            btnPositive.setOnClickListener {
+                onButtonClickCallback.onButtonPositive(this@DialogConfirmation)
             }
         }
 
@@ -44,7 +44,7 @@ class DialogConfirmation(
     }
 
     interface OnButtonClickCallback {
-        fun onButtonYes(dialog: Dialog)
-        fun onButtonNo(dialog: Dialog)
+        fun onButtonPositive(dialog: Dialog)
+        fun onButtonNegative(dialog: Dialog)
     }
 }

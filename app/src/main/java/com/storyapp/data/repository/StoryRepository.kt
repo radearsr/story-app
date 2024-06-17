@@ -47,6 +47,17 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
         }
     }
 
+    fun uploadStoryGuest(fileUpload: MultipartBody.Part, description: RequestBody) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val uploadedStory = apiService.uploadImageGuest(fileUpload, description)
+            emit(ResultState.Success(uploadedStory))
+        } catch (e: HttpException) {
+            val errorResponse = parsingErrorBody(e)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
     suspend fun logout() {
         userPreference.logout()
     }

@@ -46,4 +46,6 @@
     <string name="txt_describe">Describe your special moment...</string>
     <string name="txt_new_story">New Story</string>
     <string name="txt_detail_story">Detail Story</string>
+    <string name="txt_continue_guest">Continue as a guest</string>
+    <string name="txt_error">ERROR</string>
 </resources>
