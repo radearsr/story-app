@@ -3,12 +3,10 @@ package com.storyapp.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.storyapp.data.repository.StoryRepository
 import com.storyapp.data.repository.UserRepository
 import com.storyapp.di.Injection
 import com.storyapp.ui.auth.AuthViewModel
-import com.storyapp.ui.main.MainViewModel
-import com.storyapp.ui.welcome.WelcomeViewModel
+import com.storyapp.ui.welcome.SplashScreenViewModel
 
 class UserViewModelFactory(private val repository: UserRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -19,8 +17,8 @@ class UserViewModelFactory(private val repository: UserRepository) :
                 AuthViewModel(repository) as T
             }
 
-            modelClass.isAssignableFrom(WelcomeViewModel::class.java) -> {
-                WelcomeViewModel(repository) as T
+            modelClass.isAssignableFrom(SplashScreenViewModel::class.java) -> {
+                SplashScreenViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)

@@ -16,12 +16,13 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:contentDescription="@string/txt_desc_story_pic"
-            android:scaleType="centerCrop"
             android:src="@drawable/ic_place_holder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            tools:src="@tools:sample/backgrounds/scenic"
+            tools:scaleType="centerCrop"
+            />
 
         <TextView
             android:id="@+id/tv_item_name"

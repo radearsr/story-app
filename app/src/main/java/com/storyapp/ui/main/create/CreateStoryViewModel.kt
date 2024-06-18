@@ -27,17 +27,12 @@ class CreateStoryViewModel(private val repository: StoryRepository) : ViewModel(
 
     fun uploadStory(
         imageFile: File,
-        description: String,
-        isGuestMode: Boolean
+        description: String
     ): LiveData<ResultState<CommonResponse>> {
         val requestBody = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
         val multipartBody =
             MultipartBody.Part.createFormData("photo", imageFile.name, requestImageFile)
-        return if (isGuestMode) {
-            repository.uploadStoryGuest(multipartBody, requestBody)
-        } else {
-            repository.uploadStory(multipartBody, requestBody)
-        }
+        return repository.uploadStory(multipartBody, requestBody)
     }
 }

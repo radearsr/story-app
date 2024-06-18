@@ -117,9 +117,7 @@ class CreateStoryActivity : AppCompatActivity() {
         currentImage?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             val description = binding.edAddDescription.text.toString()
-            val isGuestMode = intent.getBooleanExtra(EXTRA_GUEST_MODE, false)
-            Log.d(TAG, "IS GUEST MODE $isGuestMode")
-            viewModel.uploadStory(imageFile, description, isGuestMode).observe(this) { result ->
+            viewModel.uploadStory(imageFile, description).observe(this) { result ->
                 if (result != null) {
                     when (result) {
                         is ResultState.Loading -> {
@@ -129,12 +127,6 @@ class CreateStoryActivity : AppCompatActivity() {
                         is ResultState.Success -> {
                             setViewLoading(false)
                             if (BuildConfig.DEBUG) Log.d(TAG, "State Success ${result.data}")
-                            if (isGuestMode) {
-                                val intent = Intent(this@CreateStoryActivity, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                                return@observe
-                            }
                             finish()
                         }
 
@@ -193,6 +185,5 @@ class CreateStoryActivity : AppCompatActivity() {
     companion object {
         private val TAG = CreateStoryActivity::class.java.simpleName
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
-        const val EXTRA_GUEST_MODE = "extra_guest_mode"
     }
 }

@@ -43,6 +43,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_background"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/txt_uploaded_image"
         android:src="@drawable/ic_place_holder"
         app:layout_constraintBottom_toTopOf="@+id/btn_gallery"
         app:layout_constraintEnd_toEndOf="parent"

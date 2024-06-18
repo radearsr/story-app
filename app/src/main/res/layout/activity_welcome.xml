@@ -10,12 +10,14 @@
     tools:context=".ui.welcome.WelcomeActivity">
 
     <ImageView
+        android:id="@+id/iv_welcome_illustration"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/welcome_illustration"
         app:layout_constraintBottom_toTopOf="@+id/middle_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/txt_desc_welcome_illustration"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -26,6 +28,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/txt_logo"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintTop_toBottomOf="@+id/middle_guideline" />
 
     <TextView
@@ -38,6 +43,8 @@
         android:textColor="@color/dark_blue"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintBottom_toBottomOf="@+id/iv_logo_app"
         app:layout_constraintStart_toEndOf="@+id/iv_logo_app"
         app:layout_constraintTop_toTopOf="@+id/iv_logo_app" />
@@ -50,6 +57,8 @@
         android:text="@string/txt_app"
         android:textColor="@color/dark_blue"
         android:textSize="30sp"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title_app"
         app:layout_constraintStart_toEndOf="@+id/tv_title_app"
         app:layout_constraintTop_toTopOf="@+id/tv_title_app" />
@@ -58,6 +67,8 @@
         android:id="@+id/tv_welcome_title"
         style="@style/TextViewBasic.Title"
         android:layout_marginTop="10dp"
+        android:alpha="0"
+        tools:alpha="1"
         android:text="@string/welcome_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +83,8 @@
         android:text="@string/welcome_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome_title" />
 
     <com.storyapp.ui.components.SolidButton
@@ -85,6 +98,8 @@
         android:fontFamily="@font/lato_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintTop_toBottomOf="@+id/bottom_guideline" />
 
 
@@ -97,6 +112,8 @@
         android:padding="10dp"
         android:fontFamily="@font/lato_bold"
         android:layout_marginTop="10dp"
+        android:alpha="0"
+        tools:alpha="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_to_login" />

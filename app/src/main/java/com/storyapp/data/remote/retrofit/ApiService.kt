@@ -44,11 +44,4 @@ interface ApiService {
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody
     ): CommonResponse
-
-    @Multipart
-    @POST("stories/guest")
-    suspend fun uploadImageGuest(
-        @Part file: MultipartBody.Part,
-        @Part("description") description: RequestBody
-    ): CommonResponse
 }

@@ -1,5 +1,7 @@
 package com.storyapp.ui.auth.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.content.Intent
 import android.os.Build
@@ -37,6 +39,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        playAnimation()
         setupView()
 
         with(binding) {
@@ -105,6 +108,47 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+    }
+
+    private fun playAnimation() {
+        val imageLogo = ObjectAnimator.ofFloat(binding.ivMainLogo, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val subtitle = ObjectAnimator.ofFloat(binding.tvSubtitle, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val labelName =
+            ObjectAnimator.ofFloat(binding.tvLabelName, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val inputName =
+            ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val labelEmail =
+            ObjectAnimator.ofFloat(binding.tvLabelEmail, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val inputEmail =
+            ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val labelPassword =
+            ObjectAnimator.ofFloat(binding.tvLabelPassword, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val inputPassword =
+            ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val buttonLogin = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val haveAccount =
+            ObjectAnimator.ofFloat(binding.tvHaveAccount, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val toLogin =
+            ObjectAnimator.ofFloat(binding.tvToLogin, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+
+        AnimatorSet().apply {
+            playSequentially(
+                imageLogo,
+                title,
+                subtitle,
+                labelName,
+                inputName,
+                labelEmail,
+                inputEmail,
+                labelPassword,
+                inputPassword,
+                buttonLogin,
+                haveAccount,
+                toLogin
+            )
+            start()
         }
     }
 
@@ -184,5 +228,6 @@ class RegisterActivity : AppCompatActivity() {
 
     companion object {
         private val TAG = RegisterActivity::class.java.simpleName
+        private const val ANIMATION_DURATION = 250L
     }
 }

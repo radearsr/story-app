@@ -1,9 +1,12 @@
 package com.storyapp.ui.welcome
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -22,6 +25,7 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        playAnimation()
 
         binding.btnToLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -32,6 +36,44 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun playAnimation() {
+        val welcomeImageScaleX = ObjectAnimator.ofFloat(binding.ivWelcomeIllustration, View.SCALE_X, 0.5f, 1.0f)
+        val welcomeImageScaleY = ObjectAnimator.ofFloat(binding.ivWelcomeIllustration, View.SCALE_Y, 0.5f, 1.0f)
+        val welcomeImageAnimatorSet = AnimatorSet().apply {
+            playTogether(welcomeImageScaleX, welcomeImageScaleY)
+            duration = 800
+        }
+        welcomeImageAnimatorSet.start()
+
+
+        val logoApp = ObjectAnimator.ofFloat(binding.ivLogoApp, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val titleApp = ObjectAnimator.ofFloat(binding.tvTitleApp, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val subTitleApp = ObjectAnimator.ofFloat(binding.tvSubtitleApp, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val titleWelcome = ObjectAnimator.ofFloat(binding.tvWelcomeTitle, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val descriptionWelcome = ObjectAnimator.ofFloat(binding.tvWelcomeDescription, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val buttonLogin = ObjectAnimator.ofFloat(binding.btnToLogin, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val buttonRegister = ObjectAnimator.ofFloat(binding.btnToRegister, View.ALPHA, 1f).setDuration(ANIMATION_DURATION)
+        val fadeAnimatorSet =  AnimatorSet().apply {
+            playSequentially(logoApp, titleApp, subTitleApp, titleWelcome, descriptionWelcome, buttonLogin, buttonRegister)
+        }
+        fadeAnimatorSet.start()
+
+
+        val logoAppScaleX = ObjectAnimator.ofFloat(binding.ivLogoApp, View.SCALE_X, 0.9f, 1.0f).apply {
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }
+        val logoAppScaleY = ObjectAnimator.ofFloat(binding.ivLogoApp, View.SCALE_Y, 0.9f, 1.0f).apply {
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }
+        val logoAppAnimatorSet = AnimatorSet().apply {
+            playTogether(logoAppScaleX, logoAppScaleY)
+            duration = 2000
+        }
+        logoAppAnimatorSet.start()
     }
 
 
@@ -46,5 +88,9 @@ class WelcomeActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    companion object {
+        private const val ANIMATION_DURATION = 300L
     }
 }

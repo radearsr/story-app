@@ -9,14 +9,9 @@ import android.os.Looper
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.storyapp.BuildConfig
-import com.storyapp.R
-import com.storyapp.data.repository.UserRepository
 import com.storyapp.databinding.ActivitySplashScreenBinding
 import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.main.MainActivity
@@ -24,7 +19,7 @@ import com.storyapp.ui.main.MainActivity
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<WelcomeViewModel> {
+    private val viewModel by viewModels<SplashScreenViewModel> {
         UserViewModelFactory.getInstance(this)
     }
 
