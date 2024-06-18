@@ -23,7 +23,6 @@ import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.login.LoginActivity
 import com.storyapp.ui.components.DialogInformation
-import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
 

@@ -14,7 +14,6 @@ import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityDetailStoryBinding
 import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogInformation
-import com.storyapp.ui.main.MainViewModel
 import com.storyapp.utils.getTimeAgo
 
 class DetailStoryActivity : AppCompatActivity() {

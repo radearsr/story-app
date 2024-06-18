@@ -3,15 +3,12 @@ package com.storyapp.data.repository
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.storyapp.data.ResultState
-import com.storyapp.data.pref.UserModel
 import com.storyapp.data.pref.UserPreference
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.retrofit.ApiService
-import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
-import javax.xml.transform.Result
 
 class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
 

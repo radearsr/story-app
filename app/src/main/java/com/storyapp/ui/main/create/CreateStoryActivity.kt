@@ -23,7 +23,6 @@ import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
 import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogInformation
-import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.reduceFileImage
 import com.storyapp.utils.uriToFile
 

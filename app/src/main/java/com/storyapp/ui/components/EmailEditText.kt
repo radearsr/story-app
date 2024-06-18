@@ -5,11 +5,8 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Patterns
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
-import com.storyapp.R
 import com.storyapp.utils.validEmail
 
 class EmailEditText @JvmOverloads constructor(

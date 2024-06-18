@@ -24,7 +24,6 @@ import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.register.RegisterActivity
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.MainActivity
-import com.storyapp.ui.main.create.CreateStoryActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
 

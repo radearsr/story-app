@@ -5,17 +5,13 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.databinding.ActivityWelcomeBinding
-import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.login.LoginActivity
 import com.storyapp.ui.auth.register.RegisterActivity
-import com.storyapp.ui.main.MainActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
