@@ -23,6 +23,7 @@ import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.login.LoginActivity
 import com.storyapp.ui.components.DialogInformation
+import com.storyapp.ui.welcome.WelcomeActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
 
@@ -99,6 +100,8 @@ class RegisterActivity : AppCompatActivity() {
             })
 
             fabBack.setOnClickListener {
+                val intent = Intent(this@RegisterActivity, WelcomeActivity::class.java)
+                startActivity(intent)
                 finish()
             }
 

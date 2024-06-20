@@ -24,6 +24,7 @@ import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.register.RegisterActivity
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.MainActivity
+import com.storyapp.ui.welcome.WelcomeActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
 
@@ -69,6 +70,8 @@ class LoginActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
         binding.fabBack.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
             finish()
         }
         binding.tvToRegister.setOnClickListener {
