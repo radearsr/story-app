@@ -49,4 +49,6 @@
     <string name="txt_error">ERROR</string>
     <string name="txt_desc_welcome_illustration">Illustration Welcome Screen</string>
     <string name="txt_uploaded_image">Preview uploaded image</string>
+    <string name="email_not_valid">Email address not valid</string>
+    <string name="password_required">Password must be at least 8 characters long</string>
 </resources>

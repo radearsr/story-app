@@ -7,6 +7,8 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doAfterTextChanged
+import com.storyapp.R
 import com.storyapp.utils.validEmail
 
 class EmailEditText @JvmOverloads constructor(
@@ -19,22 +21,18 @@ class EmailEditText @JvmOverloads constructor(
         textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         inputType = InputType.TYPE_CLASS_TEXT
 
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                s?.let {
+        addTextChangedListener(
+            doAfterTextChanged {
+                it?.let {
                     validateEmailAddress(it.toString())
                 }
             }
-        })
+        )
     }
 
     private fun validateEmailAddress(email: String) {
         if (!validEmail(email)) {
-            this.error = "Alamat email tidak valid"
+            this.error = context.getString(R.string.email_not_valid)
         }
     }
 }

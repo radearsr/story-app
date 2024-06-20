@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import com.storyapp.R
 import com.storyapp.utils.validPassword
 
@@ -37,21 +38,17 @@ class PasswordEditText @JvmOverloads constructor(
         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, visibilityToggleDrawable, null)
 
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
+        addTextChangedListener(
+            doAfterTextChanged {
                 setError(
-                    if (!validPassword(s.toString())) {
-                        "Password harus terdiri dari minimal 8 karakter"
+                    if (!validPassword(it.toString())) {
+                        context.getString(R.string.password_required)
                     } else {
                         null
                     }, null
                 )
             }
-        })
+        )
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

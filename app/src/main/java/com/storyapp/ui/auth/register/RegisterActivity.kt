@@ -15,6 +15,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
@@ -51,53 +52,23 @@ class RegisterActivity : AppCompatActivity() {
                 registerStart(name, email, password)
             }
 
-            edRegisterName.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            edRegisterName.addTextChangedListener(
+                onTextChanged = { _, _, _, _ ->
                     setupButtonStartEnable()
                 }
+            )
 
-                override fun afterTextChanged(s: Editable?) {}
-            })
-
-            edLoginEmail.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            edLoginEmail.addTextChangedListener(
+                onTextChanged = { _, _, _, _ ->
                     setupButtonStartEnable()
                 }
+            )
 
-                override fun afterTextChanged(s: Editable?) {}
-            })
-
-            edLoginPassword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            edLoginPassword.addTextChangedListener(
+                onTextChanged = { _, _, _, _ ->
                     setupButtonStartEnable()
                 }
-
-                override fun afterTextChanged(s: Editable?) {}
-            })
+            )
 
             fabBack.setOnClickListener {
                 val intent = Intent(this@RegisterActivity, WelcomeActivity::class.java)

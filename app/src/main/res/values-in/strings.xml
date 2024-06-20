@@ -49,4 +49,6 @@
     <string name="txt_error">KESALAHAN</string>
     <string name="txt_desc_welcome_illustration">Ilustrasi Layar Sambutan</string>
     <string name="txt_uploaded_image">Pratinjau gambar yang diunggah</string>
+    <string name="email_not_valid">Alamat email tidak valid</string>
+    <string name="password_required">Password harus terdiri dari minimal 8 karakter</string>
 </resources>

@@ -49,4 +49,6 @@
     <string name="txt_error">KASALAHAN</string>
     <string name="txt_desc_welcome_illustration">Ilustrasi Layar Sugeng Rawuh</string>
     <string name="txt_uploaded_image">Pratinjau gambar sing diunggah</string>
+    <string name="email_not_valid">Alamat email ora sah</string>
+    <string name="password_required">Sandi kudu paling ora 8 karakter</string>
 </resources>
