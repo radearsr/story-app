@@ -18,6 +18,7 @@ import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogConfirmation
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.create.CreateStoryActivity
+import com.storyapp.ui.main.maps.MapsActivity
 import com.storyapp.ui.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.txt_logout),
                         getString(R.string.txt_close)
                     )
+                }
+                R.id.action_maps -> {
+                    val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                    startActivity(intent)
                 }
             }
             return@setOnMenuItemClickListener true

@@ -1,9 +1,8 @@
 package com.storyapp.ui.components
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -51,6 +50,7 @@ class PasswordEditText @JvmOverloads constructor(
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP) {
             val drawableRight =
