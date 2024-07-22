@@ -27,12 +27,19 @@ class CreateStoryViewModel(private val repository: StoryRepository) : ViewModel(
 
     fun uploadStory(
         imageFile: File,
-        description: String
+        description: String,
+        latitude: Double?,
+        longitude: Double?
     ): LiveData<ResultState<CommonResponse>> {
-        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val reqBodyDescription = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-        val multipartBody =
-            MultipartBody.Part.createFormData("photo", imageFile.name, requestImageFile)
-        return repository.uploadStory(multipartBody, requestBody)
+        val reqBodyLatitude = latitude.toString().toRequestBody("text/plain".toMediaType())
+        val reqBodyLongitude = longitude.toString().toRequestBody("text/plain".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData("photo", imageFile.name, requestImageFile)
+        return if (latitude == null && longitude == null) {
+            repository.uploadStory(multipartBody, reqBodyDescription)
+        } else {
+            repository.uploadStoryWithLocation(multipartBody, reqBodyDescription, reqBodyLatitude, reqBodyLongitude)
+        }
     }
 }

@@ -22,6 +22,16 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
         }
     }
 
+    fun getStoriesWithLocation() = liveData {
+        emit(ResultState.Loading)
+        try {
+            val storiesResponse = apiService.getStoriesWithLocation()
+            emit(ResultState.Success(storiesResponse.listStory))
+        } catch (e: HttpException) {
+            emit(ResultState.Error(e.code().toString()))
+        }
+    }
+
     fun getDetailStory(storyId: String) = liveData {
         emit(ResultState.Loading)
         try {
@@ -37,6 +47,17 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
         emit(ResultState.Loading)
         try {
             val uploadedStory = apiService.uploadImage(fileUpload, description)
+            emit(ResultState.Success(uploadedStory))
+        } catch (e: HttpException) {
+            val errorResponse = parsingErrorBody(e)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun uploadStoryWithLocation(fileUpload: MultipartBody.Part, description: RequestBody, latitude: RequestBody, longitude: RequestBody) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val uploadedStory = apiService.uploadImageWithLocation(fileUpload, description, latitude, longitude)
             emit(ResultState.Success(uploadedStory))
         } catch (e: HttpException) {
             val errorResponse = parsingErrorBody(e)

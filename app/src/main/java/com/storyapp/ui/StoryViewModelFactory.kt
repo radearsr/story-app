@@ -8,6 +8,7 @@ import com.storyapp.di.Injection
 import com.storyapp.ui.main.MainViewModel
 import com.storyapp.ui.main.create.CreateStoryViewModel
 import com.storyapp.ui.main.detail.DetailStoryViewModel
+import com.storyapp.ui.main.maps.MapsViewModel
 
 class StoryViewModelFactory(private val repository: StoryRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -26,6 +27,10 @@ class StoryViewModelFactory(private val repository: StoryRepository) :
 
             modelClass.isAssignableFrom(CreateStoryViewModel::class.java) -> {
                 CreateStoryViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)

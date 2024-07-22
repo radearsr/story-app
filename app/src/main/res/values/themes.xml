@@ -6,6 +6,15 @@
         <item name="android:statusBarColor">@color/blue</item>
     </style>
 
+    <style name="Theme.StoryApp.ActionBar" parent="Theme.Material3.DayNight">
+        <item name="android:statusBarColor">@color/blue</item>
+    </style>
+
+
+    <style name="CheckboxBlue" parent="Base.Theme.AppCompat">
+        <item name="android:colorAccent">@color/blue</item>
+    </style>
+
     <style name="Theme.StoryApp" parent="Base.Theme.StoryApp" />
 
     <style name="RoundedEditText">

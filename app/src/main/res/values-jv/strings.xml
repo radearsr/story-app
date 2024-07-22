@@ -51,4 +51,7 @@
     <string name="txt_uploaded_image">Pratinjau gambar sing diunggah</string>
     <string name="email_not_valid">Alamat email ora sah</string>
     <string name="password_required">Sandi kudu paling ora 8 karakter</string>
+    <string name="show_maps">Tampilake Peta</string>
+    <string name="title_activity_maps">Detail Peta</string>
+    <string name="location_not_found">Lokasi ora ketemu. Coba maneh</string>
 </resources>

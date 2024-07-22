@@ -52,5 +52,6 @@
     <string name="email_not_valid">Email address not valid</string>
     <string name="password_required">Password must be at least 8 characters long</string>
     <string name="show_maps">Show Maps</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps">Detail Maps</string>
+    <string name="location_not_found">Location is not found. Try Again</string>
 </resources>
