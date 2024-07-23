@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.rvListStory.layoutManager = LinearLayoutManager(this)
+
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_logout -> {
@@ -57,56 +59,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getStories().observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is ResultState.Loading -> {
-                        setViewLoading(true)
-                    }
+        retrieveData()
+    }
 
-                    is ResultState.Success -> {
-                        if (BuildConfig.DEBUG) {
-                            Log.d(TAG, "State Success ${result.data}")
-                        }
-                        setViewLoading(false)
-                        setupRecyclerView(result.data)
-                    }
-
-                    is ResultState.Error -> {
-                        setViewLoading(false)
-                        if (BuildConfig.DEBUG) {
-                            Log.e(TAG, "State Error ${result.error}")
-                        }
-                        when (result.error.toInt()) {
-                            401 -> {
-                                val dialog = DialogInformation(
-                                    this@MainActivity,
-                                    getString(R.string.txt_alert),
-                                    getString(R.string.txt_unauthorize),
-                                    getString(R.string.txt_login),
-                                    false
-                                )
-                                dialog.setOnButtonClickCallback(object :
-                                    DialogInformation.OnButtonClickCallback {
-                                    override fun onButtonClose(dialog: Dialog) {
-                                        finish()
-                                    }
-                                })
-                                dialog.show()
-                                setViewError(getString(R.string.txt_unauthorize))
-                            }
-
-                            404 -> {
-                                setViewError(getString(R.string.txt_not_found))
-                            }
-
-                            else -> {
-                                setViewError(getString(R.string.txt_server_error))
-                            }
-                        }
-                    }
-                }
-            }
+    private fun retrieveData() {
+        val adapter = StoryAdapter()
+        binding.rvListStory.adapter = adapter
+        viewModel.stories.observe(this) {
+            adapter.submitData(lifecycle, it)
         }
     }
 
@@ -152,12 +112,6 @@ class MainActivity : AppCompatActivity() {
         with(binding.loadingComp.clLoading) {
             visibility = if (isLoading) View.VISIBLE else View.GONE
         }
-    }
-
-    private fun setupRecyclerView(stories: List<ListStoryItem>) {
-        binding.rvListStory.layoutManager = LinearLayoutManager(this)
-        val storyAdapter = StoryAdapter(stories)
-        binding.rvListStory.adapter = storyAdapter
     }
 
     companion object {

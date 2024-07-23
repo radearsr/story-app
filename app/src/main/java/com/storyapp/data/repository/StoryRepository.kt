@@ -1,10 +1,19 @@
 package com.storyapp.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.paging.liveData
 import com.google.gson.Gson
 import com.storyapp.data.ResultState
+import com.storyapp.data.paging.StoryPagingSource
 import com.storyapp.data.pref.UserPreference
 import com.storyapp.data.remote.response.CommonResponse
+import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -12,14 +21,15 @@ import retrofit2.HttpException
 
 class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
 
-    fun getAllStories() = liveData {
-        emit(ResultState.Loading)
-        try {
-            val storiesResponse = apiService.getStories()
-            emit(ResultState.Success(storiesResponse.listStory))
-        } catch (e: HttpException) {
-            emit(ResultState.Error(e.code().toString()))
-        }
+    fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     fun getStoriesWithLocation() = liveData {
