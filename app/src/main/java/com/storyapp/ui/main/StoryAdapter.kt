@@ -32,12 +32,12 @@ class StoryAdapter() : PagingDataAdapter<ListStoryItem,StoryAdapter.ListViewHold
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val storyItem = getItem(position)
-        storyItem?.let {
+        storyItem?.let { story ->
             with(holder.binding) {
-                tvItemName.text = it.name
+                tvItemName.text = story.name
                 Glide
                     .with(root)
-                    .load(it.photoUrl)
+                    .load(story.photoUrl)
                     .placeholder(R.drawable.ic_place_holder)
                     .into(object: CustomTarget<Drawable>() {
                         override fun onResourceReady(
@@ -54,12 +54,12 @@ class StoryAdapter() : PagingDataAdapter<ListStoryItem,StoryAdapter.ListViewHold
                             ivItemPhoto.scaleType = ImageView.ScaleType.FIT_CENTER
                         }
                     })
-                val timeAgo = getTimeAgo(holder.itemView.context, it.createdAt)
+                val timeAgo = getTimeAgo(holder.itemView.context, story.createdAt)
                 tvItemDate.text = timeAgo
             }
             holder.itemView.setOnClickListener {
                 val intent = Intent(holder.itemView.context, DetailStoryActivity::class.java)
-                intent.putExtra(DetailStoryActivity.EXTRA_STORY_ID, it.id)
+                intent.putExtra(DetailStoryActivity.EXTRA_STORY_ID, story.id)
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
                         holder.itemView.context as Activity,
