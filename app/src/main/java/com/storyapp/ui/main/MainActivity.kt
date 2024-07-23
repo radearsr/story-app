@@ -64,7 +64,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun retrieveData() {
         val adapter = StoryAdapter()
-        binding.rvListStory.adapter = adapter
+        binding.rvListStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         viewModel.stories.observe(this) {
             adapter.submitData(lifecycle, it)
         }
