@@ -14,17 +14,16 @@ import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.databinding.ActivityMainBinding
-import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogConfirmation
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.create.CreateStoryActivity
 import com.storyapp.ui.main.maps.MapsActivity
 import com.storyapp.ui.welcome.WelcomeActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel by viewModels<MainViewModel> {
-        StoryViewModelFactory.getInstance(this)
-    }
+    private val viewModel: MainViewModel by viewModel()
+
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

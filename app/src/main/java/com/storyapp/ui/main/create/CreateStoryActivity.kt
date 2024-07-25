@@ -27,16 +27,14 @@ import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
-import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.utils.reduceFileImage
 import com.storyapp.utils.uriToFile
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CreateStoryActivity : AppCompatActivity() {
-    private val viewModel by viewModels<CreateStoryViewModel> {
-        StoryViewModelFactory.getInstance(this)
-    }
+    private val viewModel: CreateStoryViewModel by viewModel()
 
     private var currentLatitude: Double? = null
     private var currentLongitude: Double? = null

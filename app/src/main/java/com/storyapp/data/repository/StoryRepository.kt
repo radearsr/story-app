@@ -19,7 +19,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
 
-class StoryRepository private constructor(private val userPreference: UserPreference, private val apiService: ApiService){
+class StoryRepository(private val userPreference: UserPreference, private val apiService: ApiService) {
 
     fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
         return Pager(
@@ -83,13 +83,5 @@ class StoryRepository private constructor(private val userPreference: UserPrefer
     private fun parsingErrorBody(e: HttpException): CommonResponse {
         val errorBody = e.response()?.errorBody()?.string()
         return Gson().fromJson(errorBody, CommonResponse::class.java)
-    }
-
-    companion object {
-        @Volatile
-        private var instance: StoryRepository? = null
-        fun getInstance(userPreference: UserPreference, apiService: ApiService): StoryRepository = instance ?: synchronized(this) {
-            instance ?: StoryRepository(userPreference, apiService)
-        }.also { instance = it }
     }
 }

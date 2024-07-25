@@ -6,34 +6,29 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityRegisterBinding
-import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.login.LoginActivity
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.welcome.WelcomeActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val authViewModel by viewModels<AuthViewModel> {
-        UserViewModelFactory.getInstance(this)
-    }
+    private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

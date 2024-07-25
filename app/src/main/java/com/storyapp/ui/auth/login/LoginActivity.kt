@@ -20,7 +20,6 @@ import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityLoginBinding
-import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.auth.AuthViewModel
 import com.storyapp.ui.auth.register.RegisterActivity
 import com.storyapp.ui.components.DialogInformation
@@ -28,12 +27,11 @@ import com.storyapp.ui.main.MainActivity
 import com.storyapp.ui.welcome.WelcomeActivity
 import com.storyapp.utils.validEmail
 import com.storyapp.utils.validPassword
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    private val authViewModel by viewModels<AuthViewModel> {
-        UserViewModelFactory.getInstance(this)
-    }
+    private val authViewModel: AuthViewModel by viewModel()
 
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -13,15 +13,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.BuildConfig
 import com.storyapp.databinding.ActivitySplashScreenBinding
-import com.storyapp.ui.UserViewModelFactory
 import com.storyapp.ui.main.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<SplashScreenViewModel> {
-        UserViewModelFactory.getInstance(this)
-    }
+    private val viewModel: SplashScreenViewModel by viewModel()
 
     private lateinit var binding: ActivitySplashScreenBinding
 

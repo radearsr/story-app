@@ -18,7 +18,7 @@ import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityMapsBinding
-import com.storyapp.ui.StoryViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -26,9 +26,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val boundsBuilder = LatLngBounds.Builder()
 
-    private val viewModel by viewModels<MapsViewModel> {
-        StoryViewModelFactory.getInstance(this)
-    }
+    private val viewModel: MapsViewModel by viewModel()
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding

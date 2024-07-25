@@ -85,7 +85,6 @@ class StoryAdapter() : PagingDataAdapter<ListStoryItem,StoryAdapter.ListViewHold
             ): Boolean {
                 return oldItem.id == newItem.id
             }
-
         }
     }
 }

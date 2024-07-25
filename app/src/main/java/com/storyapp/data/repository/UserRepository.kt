@@ -51,12 +51,4 @@ class UserRepository(private val userPreference: UserPreference, private val api
     fun getSession(): Flow<UserModel> {
         return userPreference.getSession()
     }
-
-    companion object {
-        @Volatile
-        private var instance: UserRepository? = null
-        fun getInstance(userPreference: UserPreference, apiService: ApiService): UserRepository = instance ?: synchronized(this) {
-            instance ?: UserRepository(userPreference, apiService)
-        }.also { instance = it }
-    }
 }

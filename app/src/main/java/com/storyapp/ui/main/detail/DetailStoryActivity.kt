@@ -12,14 +12,13 @@ import com.storyapp.BuildConfig
 import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityDetailStoryBinding
-import com.storyapp.ui.StoryViewModelFactory
 import com.storyapp.ui.components.DialogInformation
 import com.storyapp.utils.getTimeAgo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailStoryActivity : AppCompatActivity() {
-    private val viewModel by viewModels<DetailStoryViewModel> {
-        StoryViewModelFactory.getInstance(this)
-    }
+    private val viewModel: DetailStoryViewModel by viewModel()
+
     private lateinit var binding: ActivityDetailStoryBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

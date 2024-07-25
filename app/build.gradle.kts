@@ -35,6 +35,10 @@ android {
         buildConfig = true
     }
 
+    testOptions {
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -71,6 +75,9 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
 
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     implementation(libs.androidx.paging.runtime.ktx)
 
     androidTestImplementation(libs.androidx.core.testing)
@@ -80,6 +87,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
+
+    androidTestImplementation(libs.espresso.intents)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
