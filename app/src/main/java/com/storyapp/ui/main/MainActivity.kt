@@ -3,19 +3,13 @@ package com.storyapp.ui.main
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.storyapp.BuildConfig
 import com.storyapp.R
-import com.storyapp.data.ResultState
-import com.storyapp.data.remote.response.ListStoryItem
 import com.storyapp.databinding.ActivityMainBinding
 import com.storyapp.ui.components.DialogConfirmation
-import com.storyapp.ui.components.DialogInformation
 import com.storyapp.ui.main.create.CreateStoryActivity
 import com.storyapp.ui.main.maps.MapsActivity
 import com.storyapp.ui.welcome.WelcomeActivity
@@ -63,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun retrieveData() {
         val adapter = StoryAdapter()
+        adapter.retry()
         binding.rvListStory.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()

@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.koin.android)
 
     implementation(libs.androidx.paging.runtime.ktx)
+    testImplementation(project(":app"))
 
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.kotlinx.coroutines.test)
@@ -89,7 +90,10 @@ dependencies {
     testImplementation(libs.mockito.inline)
 
     androidTestImplementation(libs.espresso.intents)
+    implementation(libs.espresso.idling.resource)
 
+    androidTestImplementation(libs.koin.test.junit4)
+    androidTestImplementation(libs.koin.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

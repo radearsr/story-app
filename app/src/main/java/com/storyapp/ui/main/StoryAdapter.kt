@@ -21,7 +21,7 @@ import com.storyapp.databinding.ItemStoryListBinding
 import com.storyapp.ui.main.detail.DetailStoryActivity
 import com.storyapp.utils.getTimeAgo
 
-class StoryAdapter() : PagingDataAdapter<ListStoryItem,StoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : PagingDataAdapter<ListStoryItem,StoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
     class ListViewHolder(var binding: ItemStoryListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {

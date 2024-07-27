@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.storyapp.BuildConfig
+import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.pref.UserPreference
 import com.storyapp.data.remote.retrofit.ApiService
 import com.storyapp.data.repository.StoryRepository
@@ -25,7 +26,7 @@ val dataStoreModule = module {
 }
 
 val userPreferencesModule = module {
-    single { UserPreference(get()) }
+    single<IUserPreference> { UserPreference(get()) }
 }
 
 val networkModule = module {
@@ -40,7 +41,7 @@ val repositoryModule = module {
     single { StoryRepository(get(), get()) }
 }
 
-fun provideAuthInterceptor(userPreference: UserPreference): Interceptor {
+fun provideAuthInterceptor(userPreference: IUserPreference): Interceptor {
     return Interceptor { chain ->
         val token = runBlocking { userPreference.getUser().first() }
         val req = chain.request()

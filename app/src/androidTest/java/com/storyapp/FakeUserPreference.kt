@@ -1,26 +1,32 @@
-package com.storyapp.data.pref
+package com.storyapp
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.storyapp.data.pref.IUserPreference
+import com.storyapp.data.pref.UserModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
-class UserPreference(private val dataStore: DataStore<Preferences>): IUserPreference {
+
+class FakeUserPreference: IUserPreference {
+    private val dataStore = MutableStateFlow(emptyPreferences())
 
     override suspend fun saveSession(user: UserModel) {
-        dataStore.edit { preferences ->
-            preferences[USER_ID_KEY] = user.userId
-            preferences[NAME_KEY] = user.name
-            preferences[TOKEN_KEY] = user.token
-            preferences[IS_LOGIN_KEY] = true
+        dataStore.update { preferences ->
+            preferences.toMutablePreferences().apply {
+                this[USER_ID_KEY] = user.userId
+                this[NAME_KEY] = user.name
+                this[TOKEN_KEY] = user.token
+                this[IS_LOGIN_KEY] = true
+            }.toPreferences()
         }
     }
 
     override fun getSession(): Flow<UserModel> {
-        return dataStore.data.map { preferences ->
+        return dataStore.map { preferences ->
             UserModel(
                 userId = preferences[USER_ID_KEY] ?: "",
                 name = preferences[NAME_KEY] ?: "",
@@ -31,15 +37,13 @@ class UserPreference(private val dataStore: DataStore<Preferences>): IUserPrefer
     }
 
     override fun getUser(): Flow<String> {
-        return dataStore.data.map { preferences ->
+        return dataStore.map { preferences ->
             preferences[TOKEN_KEY] ?: ""
         }
     }
 
     override suspend fun logout() {
-        dataStore.edit { preferences ->
-            preferences.clear()
-        }
+        dataStore.update { emptyPreferences() }
     }
 
     companion object {

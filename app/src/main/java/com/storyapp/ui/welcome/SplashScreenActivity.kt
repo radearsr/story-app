@@ -9,7 +9,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.storyapp.BuildConfig
 import com.storyapp.databinding.ActivitySplashScreenBinding
