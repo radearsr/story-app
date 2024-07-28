@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -72,7 +73,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.espresso.idling.resource)
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
+    ksp(libs.room.compiler)
 
     testImplementation(project(":app"))
 

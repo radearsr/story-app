@@ -2,13 +2,17 @@ package com.storyapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
 import com.storyapp.data.ResultState
+import com.storyapp.data.local.StoryDatabase
+import com.storyapp.data.local.model.Story
 import com.storyapp.data.paging.StoryPagingSource
+import com.storyapp.data.paging.StoryRemoteMediator
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.response.StoryItemResponse
@@ -17,15 +21,17 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
 
-class StoryRepository(private val userPreference: IUserPreference, private val apiService: ApiService) {
+class StoryRepository(private val userPreference: IUserPreference, private val apiService: ApiService, private val storyDatabase: StoryDatabase) {
 
-    fun getAllStories(): LiveData<PagingData<StoryItemResponse>> {
+    @OptIn(ExperimentalPagingApi::class)
+    fun getAllStories(): LiveData<PagingData<Story>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 10
+                pageSize = 5
             ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
-                StoryPagingSource(apiService)
+                storyDatabase.storyDao().getAllStory()
             }
         ).liveData
     }

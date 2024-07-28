@@ -16,12 +16,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.storyapp.R
-import com.storyapp.data.remote.response.StoryItemResponse
+import com.storyapp.data.local.model.Story
 import com.storyapp.databinding.ItemStoryListBinding
 import com.storyapp.ui.main.detail.DetailStoryActivity
 import com.storyapp.utils.getTimeAgo
 
-class StoryAdapter : PagingDataAdapter<StoryItemResponse,StoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : PagingDataAdapter<Story, StoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
     class ListViewHolder(var binding: ItemStoryListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -74,14 +74,14 @@ class StoryAdapter : PagingDataAdapter<StoryItemResponse,StoryAdapter.ListViewHo
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryItemResponse>() {
-            override fun areItemsTheSame(oldItem: StoryItemResponse, newItem: StoryItemResponse): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: StoryItemResponse,
-                newItem: StoryItemResponse
+                oldItem: Story,
+                newItem: Story
             ): Boolean {
                 return oldItem.id == newItem.id
             }

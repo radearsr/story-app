@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.1"
+ksp = "1.9.0-1.0.12"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -28,6 +29,8 @@ mockitoCore = "4.4.0"
 mockitoInline = "4.4.0"
 espressoIntents = "3.4.0"
 koinTest = "3.3.2"
+roomCompiler = "2.5.2"
+roomKtx = "2.5.2"
 roomPaging = "2.4.0-rc01"
 
 
@@ -65,6 +68,8 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinTest" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinTest"}
 koin-test = { module = "io.insert-koin:koin-test", version.ref= "koinTest"}
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref= "koinTest"}
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
 
 
@@ -72,5 +77,6 @@ androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "ro
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 

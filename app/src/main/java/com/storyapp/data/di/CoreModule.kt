@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.storyapp.BuildConfig
+import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.pref.UserPreference
 import com.storyapp.data.remote.retrofit.ApiService
@@ -15,6 +18,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,6 +33,15 @@ val userPreferencesModule = module {
     single<IUserPreference> { UserPreference(get()) }
 }
 
+val databaseModule = module {
+    factory { get<StoryDatabase>().storyDao() }
+    single { Room.databaseBuilder(
+        androidContext(),
+        StoryDatabase::class.java,
+        "Story.db"
+    ).fallbackToDestructiveMigration().build() }
+}
+
 val networkModule = module {
     single { provideOkHttpClient(get()) }
     single { provideRetrofit(get()) }
@@ -38,7 +51,7 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { UserRepository(get(), get()) }
-    single { StoryRepository(get(), get()) }
+    single { StoryRepository(get(), get(), get()) }
 }
 
 fun provideAuthInterceptor(userPreference: IUserPreference): Interceptor {

@@ -2,6 +2,7 @@ package com.storyapp
 
 import android.app.Application
 import com.storyapp.data.di.dataStoreModule
+import com.storyapp.data.di.databaseModule
 import com.storyapp.data.di.networkModule
 import com.storyapp.data.di.repositoryModule
 import com.storyapp.data.di.userPreferencesModule
@@ -17,6 +18,7 @@ class MainApplication: Application() {
             modules(
                 dataStoreModule,
                 userPreferencesModule,
+                databaseModule,
                 networkModule,
                 repositoryModule,
                 viewModelModule,
