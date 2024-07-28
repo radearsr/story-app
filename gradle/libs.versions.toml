@@ -28,6 +28,8 @@ mockitoCore = "4.4.0"
 mockitoInline = "4.4.0"
 espressoIntents = "3.4.0"
 koinTest = "3.3.2"
+roomPaging = "2.4.0-rc01"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -63,8 +65,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinTest" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinTest"}
 koin-test = { module = "io.insert-koin:koin-test", version.ref= "koinTest"}
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref= "koinTest"}
-
-
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
 
 
 [plugins]

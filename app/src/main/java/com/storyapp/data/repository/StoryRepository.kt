@@ -11,7 +11,7 @@ import com.storyapp.data.ResultState
 import com.storyapp.data.paging.StoryPagingSource
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.remote.response.CommonResponse
-import com.storyapp.data.remote.response.StoryItem
+import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,7 +19,7 @@ import retrofit2.HttpException
 
 class StoryRepository(private val userPreference: IUserPreference, private val apiService: ApiService) {
 
-    fun getAllStories(): LiveData<PagingData<StoryItem>> {
+    fun getAllStories(): LiveData<PagingData<StoryItemResponse>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10

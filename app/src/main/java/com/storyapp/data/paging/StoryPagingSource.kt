@@ -2,18 +2,18 @@ package com.storyapp.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.storyapp.data.remote.response.StoryItem
+import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.remote.retrofit.ApiService
 
-class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, StoryItem>() {
-    override fun getRefreshKey(state: PagingState<Int, StoryItem>): Int? {
+class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, StoryItemResponse>() {
+    override fun getRefreshKey(state: PagingState<Int, StoryItemResponse>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoryItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoryItemResponse> {
         return  try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getStories(position, params.loadSize)

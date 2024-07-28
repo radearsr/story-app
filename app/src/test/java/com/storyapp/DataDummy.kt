@@ -1,12 +1,12 @@
 package com.storyapp
 
-import com.storyapp.data.remote.response.StoryItem
+import com.storyapp.data.remote.response.StoryItemResponse
 
 object DataDummy {
-    fun generateDummyStories(): List<StoryItem> {
-        val items: MutableList<StoryItem> = arrayListOf()
+    fun generateDummyStories(): List<StoryItemResponse> {
+        val items: MutableList<StoryItemResponse> = arrayListOf()
         for (i in 0..100) {
-            val story = StoryItem(
+            val story = StoryItemResponse(
                 i.toString(),
                 "https://story-api.dicoding.dev/images/stories/photos-1687835748082_eBPHUFTZ.jpg",
                 "Story $i",
