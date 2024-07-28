@@ -3,7 +3,7 @@ package com.storyapp
 import com.google.gson.Gson
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.response.DetailStoryResponse
-import com.storyapp.data.remote.response.ListStoryItem
+import com.storyapp.data.remote.response.StoryItem
 import com.storyapp.data.remote.response.LoginResponse
 import com.storyapp.data.remote.response.LoginResultResponse
 import com.storyapp.data.remote.response.StoryResponse
@@ -39,7 +39,7 @@ class FakeApiService : ApiService {
     }
 
     override suspend fun getDetailStory(storyId: String): DetailStoryResponse {
-        return  DetailStoryResponse("Success get stories", ListStoryItem(
+        return  DetailStoryResponse("Success get stories", StoryItem(
             "story-xxx",
             "http://test.com",
             name = "Story",

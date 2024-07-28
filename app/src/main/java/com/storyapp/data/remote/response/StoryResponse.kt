@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class StoryResponse(
 
-	@field:SerializedName("listStory")
-	val listStory: List<ListStoryItem> = emptyList(),
+    @field:SerializedName("listStory")
+	val listStory: List<StoryItem> = emptyList(),
 
-	@field:SerializedName("message")
+    @field:SerializedName("message")
 	val message: String
 )

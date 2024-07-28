@@ -2,7 +2,7 @@ package com.storyapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ListStoryItem(
+data class StoryItem(
 
     @field:SerializedName("id")
     val id: String,
