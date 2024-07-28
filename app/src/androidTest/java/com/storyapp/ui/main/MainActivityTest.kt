@@ -17,6 +17,7 @@ import com.storyapp.data.pref.IUserPreference
 import com.storyapp.di.testModule
 import com.storyapp.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -30,7 +31,7 @@ import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.get
-
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest : KoinTest {
 

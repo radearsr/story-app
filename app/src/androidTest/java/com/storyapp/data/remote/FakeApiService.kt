@@ -1,5 +1,6 @@
 package com.storyapp.data.remote
 
+import android.util.Log
 import com.google.gson.Gson
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.response.DetailStoryResponse
@@ -31,7 +32,20 @@ class FakeApiService : ApiService {
     }
 
     override suspend fun getStories(page: Int, size: Int): StoryResponse {
-        return  StoryResponse(emptyList(), "Success get stories")
+        val items: MutableList<StoryItemResponse> = arrayListOf()
+        for (i in 0..100) {
+            val story = StoryItemResponse(
+                i.toString(),
+                "http://test.com/$i",
+                name = "Story $i",
+                description = "This is story description $i",
+                createdAt = "2023-10-30 10:10:1$i",
+                null,
+                null
+            )
+            items.add(story)
+        }
+        return  StoryResponse(items.subList((page - 1) * size, (page - 1) * size + size), "Success get stories")
     }
 
     override suspend fun getStoriesWithLocation(location: Int): StoryResponse {

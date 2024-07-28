@@ -1,5 +1,6 @@
 package com.storyapp.ui.auth.login
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -20,10 +21,13 @@ import com.storyapp.data.pref.IUserPreference
 import com.storyapp.di.testModule
 import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.EspressoIdlingResource
+import com.storyapp.utils.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import org.junit.After
@@ -38,11 +42,18 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.get
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class LoginActivityTest : KoinTest {
 
     @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
     val activityRule = ActivityScenarioRule(LoginActivity::class.java)
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Before
     fun setUp() {
@@ -63,59 +74,31 @@ class LoginActivityTest : KoinTest {
     private val fakePasswordNotValid = "userkyun"
 
     @Test
-    fun loginPerform_Success() = runBlocking {
+    fun loginPerform_Success() = runTest {
         Intents.init()
-        try {
-            onView(withId(R.id.ed_login_email))
-                .perform(typeText(fakeEmailAddressValid), closeSoftKeyboard())
-            onView(withId(R.id.ed_login_password))
-                .perform(typeText(fakePasswordValid), closeSoftKeyboard())
-            onView(withId(R.id.btn_login)).perform(click())
-
-            intended(hasComponent(MainActivity::class.java.name))
-
-            val fakeUserPreference: IUserPreference = get()
-            suspend fun checkLoginState(): Boolean {
-                return withContext(Dispatchers.IO) {
-                    fakeUserPreference.getSession().first().isLogin
-                }
-            }
-
-            withTimeout(10000) {
-                var isLoggedIn = false
-                repeat(10) {
-                    if (checkLoginState()) {
-                        isLoggedIn = true
-                        return@withTimeout
-                    }
-                    delay(1000)
-                }
-                assertTrue("User should be logged in", isLoggedIn)
-            }
-
-            val user = withContext(Dispatchers.IO) {
-                fakeUserPreference.getSession().first()
-            }
-            assertEquals("Token should match", "fake-token", user.token)
-        } finally {
-            Intents.release()
-        }
+        onView(withId(R.id.ed_login_email))
+            .perform(typeText(fakeEmailAddressValid), closeSoftKeyboard())
+        onView(withId(R.id.ed_login_password))
+            .perform(typeText(fakePasswordValid), closeSoftKeyboard())
+        onView(withId(R.id.btn_login)).perform(click())
+        intended(hasComponent(MainActivity::class.java.name))
+        val fakeUserPreference: IUserPreference = get()
+        val isLoggedIn = fakeUserPreference.getSession().first().isLogin
+        assertTrue("User should be logged in", isLoggedIn)
+        val userToken = fakeUserPreference.getSession().first().token
+        assertEquals("Token should match", "fake-token", userToken)
+        Intents.release()
     }
 
     @Test
     fun loginPerform_Error() {
-        Intents.init()
-        try {
-            onView(withId(R.id.ed_login_email))
-                .perform(typeText(fakeEmailAddressNotValid), closeSoftKeyboard())
-            onView(withId(R.id.ed_login_password))
-                .perform(typeText(fakePasswordNotValid), closeSoftKeyboard())
-            onView(withId(R.id.btn_login)).perform(click())
-            onView(withText("Invalid email or password"))
-                .inRoot(isDialog())
-                .check(matches(isDisplayed()))
-        } finally {
-            Intents.release()
-        }
+        onView(withId(R.id.ed_login_email))
+            .perform(typeText(fakeEmailAddressNotValid), closeSoftKeyboard())
+        onView(withId(R.id.ed_login_password))
+            .perform(typeText(fakePasswordNotValid), closeSoftKeyboard())
+        onView(withId(R.id.btn_login)).perform(click())
+        onView(withText("Invalid email or password"))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
     }
 }

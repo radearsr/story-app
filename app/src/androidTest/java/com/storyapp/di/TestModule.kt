@@ -1,5 +1,8 @@
 package com.storyapp.di
 
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.remote.FakeApiService
 import com.storyapp.data.pref.FakeUserPreference
 import com.storyapp.data.pref.IUserPreference
@@ -14,8 +17,12 @@ import org.koin.dsl.module
 val testModule = module {
     single<IUserPreference> { FakeUserPreference() }
     single<ApiService> { FakeApiService() }
+    single<StoryDatabase> { Room.inMemoryDatabaseBuilder(
+        ApplicationProvider.getApplicationContext(),
+        StoryDatabase::class.java
+    ).allowMainThreadQueries().build() }
     single { UserRepository(get(), get()) }
-    single { StoryRepository(get(), get()) }
+    single { StoryRepository(get(), get(), get()) }
     viewModel { AuthViewModel(get()) }
     viewModel { MainViewModel(get()) }
 }
