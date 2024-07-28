@@ -1,7 +1,7 @@
 package com.storyapp.di
 
-import com.storyapp.FakeApiService
-import com.storyapp.FakeUserPreference
+import com.storyapp.data.remote.FakeApiService
+import com.storyapp.data.pref.FakeUserPreference
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.remote.retrofit.ApiService
 import com.storyapp.data.repository.StoryRepository

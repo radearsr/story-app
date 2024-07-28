@@ -1,10 +1,8 @@
-package com.storyapp
+package com.storyapp.data.pref
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.storyapp.data.pref.IUserPreference
-import com.storyapp.data.pref.UserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map

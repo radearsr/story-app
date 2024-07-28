@@ -1,4 +1,4 @@
-package com.storyapp
+package com.storyapp.data.remote
 
 import com.google.gson.Gson
 import com.storyapp.data.remote.response.CommonResponse

@@ -7,6 +7,7 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.storyapp.databinding.LoadingAdapterLayoutBinding
+import org.koin.core.KoinApplication.Companion.init
 
 class LoadingStateAdapter(private val retry: () -> Unit): LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
 
@@ -23,14 +24,17 @@ class LoadingStateAdapter(private val retry: () -> Unit): LoadStateAdapter<Loadi
     }
 
 
-    inner class LoadingStateViewHolder(private val binding: LoadingAdapterLayoutBinding, retry: () -> Unit): RecyclerView.ViewHolder(binding.root) {
+    inner class LoadingStateViewHolder(private val binding: LoadingAdapterLayoutBinding, private val retry: () -> Unit): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.btnRetry.setOnClickListener { retry.invoke() }
+        }
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
                 binding.tvErrorMessage.text = loadState.error.localizedMessage
             }
             binding.tvErrorMessage.isVisible = loadState is LoadState.Error
             binding.progressBar.isVisible = loadState is LoadState.Loading
-
+            binding.btnRetry.isVisible = loadState is LoadState.Error
         }
     }
 }

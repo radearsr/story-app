@@ -54,4 +54,5 @@
     <string name="show_maps">Show Maps</string>
     <string name="title_activity_maps">Detail Maps</string>
     <string name="location_not_found">Location is not found. Try Again</string>
+    <string name="txt_retry">Retry</string>
 </resources>
