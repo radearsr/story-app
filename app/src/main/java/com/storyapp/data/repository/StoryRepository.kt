@@ -11,11 +11,9 @@ import com.google.gson.Gson
 import com.storyapp.data.ResultState
 import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.local.model.Story
-import com.storyapp.data.paging.StoryPagingSource
 import com.storyapp.data.paging.StoryRemoteMediator
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.remote.response.CommonResponse
-import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

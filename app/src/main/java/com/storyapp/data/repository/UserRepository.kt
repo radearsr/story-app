@@ -1,7 +1,9 @@
 package com.storyapp.data.repository
 
+import android.content.Context
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
+import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.data.pref.IUserPreference
 import com.storyapp.data.pref.UserModel
@@ -13,7 +15,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-class UserRepository(private val userPreference: IUserPreference, private val apiService: ApiService) {
+class UserRepository(private val userPreference: IUserPreference, private val apiService: ApiService, private val context: Context) {
     fun login(email: String, password: String) = liveData {
         emit(ResultState.Loading)
         wrapEspressoIdlingResource {
@@ -33,11 +35,11 @@ class UserRepository(private val userPreference: IUserPreference, private val ap
                 val errorResponse = Gson().fromJson(errorBody, CommonResponse::class.java)
                 emit(ResultState.Error(errorResponse.message))
             } catch (e: SocketTimeoutException) {
-                emit(ResultState.Error("Network timeout. Please try again."))
+                emit(ResultState.Error(context.getString(R.string.txt_network_timeout)))
             } catch (e: IOException) {
-                emit(ResultState.Error("Network error. Please check your connection."))
+                emit(ResultState.Error(context.getString(R.string.txt_network_error)))
             } catch (e: Exception) {
-                emit(ResultState.Error("An unexpected error occurred."))
+                emit(ResultState.Error(context.getString(R.string.txt_unexpected_error)))
             }
         }
     }

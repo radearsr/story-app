@@ -1,11 +1,12 @@
 package com.storyapp.data.paging
 
-import android.provider.MediaStore.Audio.Media
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.storyapp.BuildConfig
 import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.local.model.RemoteKeys
 import com.storyapp.data.local.model.Story
@@ -24,15 +25,18 @@ class StoryRemoteMediator(
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Story>): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
+                if (BuildConfig.DEBUG) Log.d(TAG, "Load Type REFRESH")
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: INITIAL_PAGE_INDEX
             }
             LoadType.PREPEND -> {
+                if (BuildConfig.DEBUG) Log.d(TAG, "Load Type PREPEND")
                 val remoteKeys = getRemoteKeyForFirstItem(state)
                 val prevKey = remoteKeys?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 prevKey
             }
             LoadType.APPEND -> {
+                if (BuildConfig.DEBUG) Log.d(TAG, "Load Type APPEND")
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextKey = remoteKeys?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 nextKey
@@ -89,5 +93,6 @@ class StoryRemoteMediator(
 
     companion object {
         const val INITIAL_PAGE_INDEX = 1
+        private val TAG = StoryRemoteMediator::class.java.name
     }
 }

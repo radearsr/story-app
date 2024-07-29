@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.storyapp.data.local.model.Story
-import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.launch
 

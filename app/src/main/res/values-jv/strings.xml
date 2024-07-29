@@ -54,4 +54,9 @@
     <string name="show_maps">Tampilake Peta</string>
     <string name="title_activity_maps">Detail Peta</string>
     <string name="location_not_found">Lokasi ora ketemu. Coba maneh</string>
+    <string name="txt_retry">Coba Meneh</string>
+    <string name="share_location">Bagikeun Lokasi Kula</string>
+    <string name="txt_network_timeout">Wektu sambungan entek. Mangga coba meneh</string>
+    <string name="txt_network_error">Kesalahan jaringan. Mangga priksa sambungan sampeyan</string>
+    <string name="txt_unexpected_error">Ana kesalahan sing ora dikarepake</string>
 </resources>

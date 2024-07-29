@@ -3,7 +3,6 @@ package com.storyapp.ui.main
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,9 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: StoryAdapter
     private var isFirstLoading = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.txt_close)
                     )
                 }
+
                 R.id.action_maps -> {
                     val intent = Intent(this@MainActivity, MapsActivity::class.java)
                     startActivity(intent)
@@ -51,51 +53,35 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnMenuItemClickListener true
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        retrieveData()
-    }
-
-    private fun retrieveData() {
-        val adapter = StoryAdapter()
+        adapter = StoryAdapter()
         adapter.addLoadStateListener { combinedLoadStates ->
             when (combinedLoadStates.refresh) {
                 is LoadState.Loading -> {
-                    Log.d(TAG, "Paging Load State Loading State")
                     if (isFirstLoading) {
-                        Log.d(TAG, "Paging Load State First Loading")
                         setViewLoading(true)
                         return@addLoadStateListener
                     }
-                    Log.d(TAG, "Paging Load State Next Loading")
                 }
 
                 is LoadState.NotLoading -> {
-                    Log.d(TAG, "Paging Load State NotLoading State")
                     if (isFirstLoading) {
-                        Log.d(TAG, "Paging Load State First NotLoading")
                         setViewLoading(false)
                         isFirstLoading = false
                         return@addLoadStateListener
                     }
-                    Log.d(TAG, "Paging Load State Next NotLoading")
                 }
 
                 is LoadState.Error -> {
-                    Log.d(TAG, "Paging Load State Error State")
                     val errorState = combinedLoadStates.refresh as LoadState.Error
                     val error = errorState.error
-                    val errorMessage = error.message ?: "Terjadi kesalahan yang tidak diketahui"
+                    val errorMessage = error.message ?: getString(R.string.txt_unexpected_error)
                     if (isFirstLoading) {
-                        Log.d(TAG, "Paging Load State First Error")
                         setViewLoading(false)
                         setViewError(errorMessage)
                         isFirstLoading = false
                         return@addLoadStateListener
                     }
-                    Log.d(TAG, "Paging Load State Next Error")
                 }
             }
         }
@@ -109,6 +95,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (shouldRefresh) {
+            adapter.refresh()
+            shouldRefresh = false
+        }
+    }
     private fun showDialogConfirmation(
         title: String,
         message: String,
@@ -154,6 +147,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
+        var shouldRefresh = false
     }
 }

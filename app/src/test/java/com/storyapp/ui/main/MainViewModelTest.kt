@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListUpdateCallback
 import com.storyapp.DataDummy
 import com.storyapp.MainDispatcherRule
 import com.storyapp.data.local.model.Story
-import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.repository.StoryRepository
 import com.storyapp.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers

@@ -88,11 +88,13 @@ class MainActivityTest : KoinTest {
 
     @Test
     fun logoutPerform_Cancel() {
+        onView(withId(R.id.action_logout)).check(matches(isDisplayed()))
         onView(withId(R.id.action_logout)).perform(click())
         onView(withText(R.string.txt_confirm))
             .inRoot(isDialog())
             .check(matches(isDisplayed()))
 
         onView(withText(R.string.txt_close)).perform(click())
+        onView(withId(R.id.fab_create_story)).check(matches(isDisplayed()))
     }
 }

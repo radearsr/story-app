@@ -10,19 +10,17 @@ import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.local.model.Story
 import com.storyapp.data.remote.retrofit.ApiService
 import com.storyapp.di.testModule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.component.getScopeName
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.get
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @ExperimentalPagingApi
 @RunWith(AndroidJUnit4::class)
 class StoryRemoteMediatorTest: KoinTest {

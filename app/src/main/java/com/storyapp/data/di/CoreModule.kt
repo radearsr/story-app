@@ -5,7 +5,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.storyapp.BuildConfig
 import com.storyapp.data.local.StoryDatabase
 import com.storyapp.data.pref.IUserPreference
@@ -50,7 +49,7 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single { UserRepository(get(), get()) }
+    single { UserRepository(get(), get(), androidContext()) }
     single { StoryRepository(get(), get(), get()) }
 }
 

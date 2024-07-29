@@ -54,4 +54,9 @@
     <string name="show_maps">Tampilkan Peta</string>
     <string name="title_activity_maps">Detail Peta</string>
     <string name="location_not_found">Lokasi tidak ditemukan. Coba Lagi</string>
+    <string name="txt_retry">Coba Lagi</string>
+    <string name="share_location">Bagikan Lokasi Saya</string>
+    <string name="txt_network_timeout">Waktu koneksi habis. Silakan coba lagi</string>
+    <string name="txt_network_error">Kesalahan jaringan. Silakan periksa koneksi Anda</string>
+    <string name="txt_unexpected_error">Terjadi kesalahan yang tidak terduga</string>
 </resources>

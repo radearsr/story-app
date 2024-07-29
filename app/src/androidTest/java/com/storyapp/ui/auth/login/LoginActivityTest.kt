@@ -22,14 +22,9 @@ import com.storyapp.di.testModule
 import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.EspressoIdlingResource
 import com.storyapp.utils.MainDispatcherRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -76,8 +71,10 @@ class LoginActivityTest : KoinTest {
     @Test
     fun loginPerform_Success() = runTest {
         Intents.init()
+        onView(withId(R.id.ed_login_email)).check(matches(isDisplayed()))
         onView(withId(R.id.ed_login_email))
             .perform(typeText(fakeEmailAddressValid), closeSoftKeyboard())
+        onView(withId(R.id.ed_login_password)).check(matches(isDisplayed()))
         onView(withId(R.id.ed_login_password))
             .perform(typeText(fakePasswordValid), closeSoftKeyboard())
         onView(withId(R.id.btn_login)).perform(click())
@@ -92,8 +89,10 @@ class LoginActivityTest : KoinTest {
 
     @Test
     fun loginPerform_Error() {
+        onView(withId(R.id.ed_login_email)).check(matches(isDisplayed()))
         onView(withId(R.id.ed_login_email))
             .perform(typeText(fakeEmailAddressNotValid), closeSoftKeyboard())
+        onView(withId(R.id.ed_login_password)).check(matches(isDisplayed()))
         onView(withId(R.id.ed_login_password))
             .perform(typeText(fakePasswordNotValid), closeSoftKeyboard())
         onView(withId(R.id.btn_login)).perform(click())

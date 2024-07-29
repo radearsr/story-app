@@ -23,6 +23,7 @@ import com.storyapp.R
 import com.storyapp.data.ResultState
 import com.storyapp.databinding.ActivityCreateStoryBinding
 import com.storyapp.ui.components.DialogInformation
+import com.storyapp.ui.main.MainActivity
 import com.storyapp.utils.reduceFileImage
 import com.storyapp.utils.uriToFile
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -84,6 +85,7 @@ class CreateStoryActivity : AppCompatActivity() {
             uploadImage()
         }
         binding.fabBack.setOnClickListener {
+            MainActivity.shouldRefresh = true
             finish()
         }
         binding.btnGallery.setOnClickListener {
@@ -135,6 +137,7 @@ class CreateStoryActivity : AppCompatActivity() {
                         is ResultState.Success -> {
                             setViewLoading(false)
                             if (BuildConfig.DEBUG) Log.d(TAG, "State Success ${result.data}")
+                            MainActivity.shouldRefresh = true
                             finish()
                         }
 

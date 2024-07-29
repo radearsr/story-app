@@ -1,12 +1,11 @@
 package com.storyapp.data.remote
 
-import android.util.Log
 import com.google.gson.Gson
 import com.storyapp.data.remote.response.CommonResponse
 import com.storyapp.data.remote.response.DetailStoryResponse
-import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.remote.response.LoginResponse
 import com.storyapp.data.remote.response.LoginResultResponse
+import com.storyapp.data.remote.response.StoryItemResponse
 import com.storyapp.data.remote.response.StoryResponse
 import com.storyapp.data.remote.retrofit.ApiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

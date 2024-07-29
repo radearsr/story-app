@@ -23,7 +23,7 @@
         android:layout_marginStart="7dp"
         android:layout_toEndOf="@+id/checkbox"
         android:fontFamily="@font/lato_bold"
-        android:text="Share My Location"
+        android:text="@string/share_location"
         android:textColor="@color/dark_blue"
         android:textSize="18sp" />
 </RelativeLayout>

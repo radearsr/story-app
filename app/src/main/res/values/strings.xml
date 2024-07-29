@@ -55,4 +55,8 @@
     <string name="title_activity_maps">Detail Maps</string>
     <string name="location_not_found">Location is not found. Try Again</string>
     <string name="txt_retry">Retry</string>
+    <string name="share_location">Share My Location</string>
+    <string name="txt_network_timeout">Network timeout. Please try again.</string>
+    <string name="txt_network_error">Network error. Please check your connection.</string>
+    <string name="txt_unexpected_error">An unexpected error occurred.</string>
 </resources>
