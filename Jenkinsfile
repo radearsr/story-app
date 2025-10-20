@@ -2,10 +2,10 @@ pipeline {
     agent { label 'android' }
 
     environment {
+        JAVA_HOME = "/opt/java/openjdk"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         ANDROID_HOME = "/opt/android-sdk"
         ANDROID_SDK_ROOT = "/opt/android-sdk"
-        PATH = "$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/34.0.0"
-        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
     }
 
     stages {
