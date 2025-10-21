@@ -1,28 +1,20 @@
-import java.util.Properties
-
 val localPropertiesFile = rootProject.file("local.properties")
-var sdkDir: String? = null
 
-if (localPropertiesFile.exists()) {
-    val properties = Properties()
-    localPropertiesFile.inputStream().use { properties.load(it) }
-    sdkDir = properties.getProperty("sdk.dir")
+// Cek apakah file sudah ada
+if (!localPropertiesFile.exists()) {
+    val sdkDir = System.getenv("ANDROID_SDK_ROOT") ?: System.getenv("ANDROID_HOME")
+
+    if (sdkDir != null && sdkDir.isNotEmpty()) {
+        println("👉 [Gradle] Creating local.properties with sdk.dir=$sdkDir")
+        localPropertiesFile.writeText("sdk.dir=$sdkDir\n")
+    } else {
+        throw GradleException(
+            "❌ SDK location not found. Please set ANDROID_SDK_ROOT or create local.properties with sdk.dir."
+        )
+    }
 }
 
-if (sdkDir.isNullOrEmpty()) {
-    sdkDir = System.getenv("ANDROID_SDK_ROOT")
-}
-
-if (sdkDir.isNullOrEmpty()) {
-    throw GradleException(
-        "SDK location not found. Please set ANDROID_SDK_ROOT or create local.properties with sdk.dir."
-    )
-}
-
-// Set ke gradle agar dikenali Android plugin
-System.setProperty("android.home", sdkDir)
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// Plugin management
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
